@@ -1,0 +1,45 @@
+user controller:
+HTTP Requests are created while users interacting a web browser (ex: chrome).
+
+The server receives and response to these requests,
+while observing the database to get or send data back to the web browser.
+
+HTTP Request:
+- URL (ex: www.google.com/business/)
+- query string parameters
+- header
+- request body.
+
+HTTP Response:
+- response body (or String),
+- HTTP Status
+ex) 200 OK -> request succeeded
+ex) 400 Bad Request -> server cannot or will not process the request due to specific errors).
+
+
+The user controller (UserController) includes HTTP Methods and CRUD:
+* create user (PostMapping)
+* get user (GetMapping)
+* update user (PutMapping)
+* delete user (DeleteMapping)
+
+
+Each of user service (@Service) include 'execute()' method that returns the HTTP status.
+Originally, these services are injected into the user controller by using the @Autowired annotation (field injection).
+However, the dependency injection is more recommended because we can take the advantage of reusability of code and easy
+to test. We can use the constructor of user controller to do the dependency injection.
+
+의존성 주입 예시: car 클래스 안에 engine 클래스가 instance로 정의 되있다? 가솔린차 전기차 만들때 2개의 car 클래스 만들어야 함
+                하지만 car 클래스 생성자 파라미터에 engine 클래스를 받고 private final 로 engine 클래스를 정의하면
+                -> engine 클래스 생성후 인스턴스화 시켜서 car 클래스에서 사용한다
+                여기서 얻는 이점은 다양한 engine 하위 클래스만 만들어줘서 car 클래스에 사용하면 됌
+                예시) electricengine 클래스 (engine 하위 클래스) 만들어서 그냥 car 클래스에 사용하면 됌
+                테스트 하기도 편함 -> superengine 클래스, fakeengine 클래스 등등 다양한 engine 클래스 실험해보고 싶으면
+                그냥 만들어서 car 클래스 생성자 파라미터에 보내주면 됌
+                따라서 car 클래스에 대한 설정을 바꾸지 않아도 engine 클래스만 바꿔가면서 사용할 수 있다~
+reference: https://developer.android.com/training/dependency-injection#:~:text=Dependency%20injection%20(DI)%20is%20a,Ease%20of%20refactoring
+
+
+
+
+
