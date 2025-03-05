@@ -1,0 +1,12 @@
+CQRS (Command Query Responsibility Segregation):
+A design pattern that categorizes operations into two categories
+-> queries (read data)
+-> commands (update or modify data)
+
+We use two different interfaces (Query and Command) about user services.
+
+The 'create', 'delete', and 'update' user services can possibly modify data so
+it can be defined as 'command' type operation.
+
+However, the 'get' user service only read data without changing it so it can be
+defined as a 'query' type operation.
