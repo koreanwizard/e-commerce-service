@@ -1,0 +1,30 @@
+User:
+A 'User' is a class that will be linked to the database: this is an Entity (jpa).
+The user contains:
+- Id (generated automatically and will be used from the database)
+- name (a full name)
+- sex (user's sex -> 'M' or 'F')
+- birth date (user's birth date -> data type is java.sql.Date because this will be used in mysql)
+- user id (user's id that will be used in the service -> an alphanumerical string (should have a length limit)
+- user password (this should not be stored directly into our database -> should be ENCRYPTED)
+
+* @JsonFormat
+- By using  annotation, the date attribute from JSON input (from podman) converts to java.sql.Date type
+and added into the database.
+
+* nullable = false
+- This make Spring Boot and Hibernate will enforce 'birthDate' cannot be null from the database.
+
+* The @Column name and the local variable should be same (이것때문에 podman 에서 json 파일 형식으로 create request
+실험해볼때 계속 에러 났었음 ('birthDate' is null)
+
+
+* DateTimeFormatter
+- The 'DateTimeFormatter' formats the LocalDateTime to a specific pattern -> in our case, we should use the
+pattern "yyyy-MM-dd" because we should store the LocalDateTime into our database (the database includes a birth
+
+
+UserDTO:
+DTO: a data transfer object that carries data between system processes.
+can be used between the API and server without exposing important information such as password or personal information.
+A 'UserDTO' only carries the raw id, user's name, and user's id.
