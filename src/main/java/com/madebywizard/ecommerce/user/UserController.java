@@ -24,18 +24,22 @@ public class UserController {
 
     private final DeleteUserService deleteUserService;
 
+    private final SearchUserService searchUserService;
+
 
     public UserController(CreateUserService createUserService,
                           GetUsersService getUsersService,
                           GetUserService getUserService,
                           UpdateUserService updateUserService,
-                          DeleteUserService deleteUserService) {
+                          DeleteUserService deleteUserService,
+                          SearchUserService searchUserService) {
 
         this.createUserService = createUserService;
         this.getUsersService = getUsersService;
         this.getUserService = getUserService;
         this.updateUserService = updateUserService;
         this.deleteUserService = deleteUserService;
+        this.searchUserService = searchUserService;
     }
 
 
@@ -54,10 +58,13 @@ public class UserController {
         return getUserService.execute(id);
     }
 
+    @GetMapping("/user/search")
+    public ResponseEntity<List<UserDTO>> searchProductByLastName(@RequestParam("lastName") String lastName) {
+        return searchUserService.execute(lastName);
+    }
 
     @PutMapping("/user/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-
         // passing both id and 'User' object
         return updateUserService.execute(new UpdateUserCommand(id, user));
     }
@@ -66,5 +73,4 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
         return deleteUserService.execute(id);
     }
-
 }
