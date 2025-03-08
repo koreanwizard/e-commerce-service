@@ -25,7 +25,6 @@ public class GetUsersService implements Query<Void, List<UserDTO>> {
 
         List<User> users = userRepository.findAll();
         List<UserDTO> userDTOS = users.stream().map(UserDTO::new).toList();
-
         return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
     }
 }
