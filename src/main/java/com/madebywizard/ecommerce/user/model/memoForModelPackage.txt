@@ -8,15 +8,12 @@ The user contains:
 - user id (user's id that will be used in the service -> an alphanumerical string (should have a length limit)
 - user password (this should not be stored directly into our database -> should be ENCRYPTED)
 
-* @JsonFormat
-- By using  annotation, the date attribute from JSON input (from podman) converts to java.sql.Date type
-and added into the database.
-
-* nullable = false
-- This make Spring Boot and Hibernate will enforce 'birthDate' cannot be null from the database.
-
-* The @Column name and the local variable should be same (이것때문에 podman 에서 json 파일 형식으로 create request
-실험해볼때 계속 에러 났었음 ('birthDate' is null)
+* @NotNull and @Pattern(regexp = 'M|F')
+- These annotations are provided by Jakarta Validation API and they can be used for validating columns.
+However, in this project we will just create a 'UserValidator' object and implement it with if statements
+to understand and study validators.
+Furthermore, there is another annotation called @Valid which can be include in controller method to check the validation
+that includes certain annotations such as @NotNull, @Pattern, @Size, and @PositiveOrZero etc.
 
 
 * DateTimeFormatter
@@ -24,7 +21,14 @@ and added into the database.
 pattern "yyyy-MM-dd" because we should store the LocalDateTime into our database (the database includes a birth
 
 
-UserDTO:
+* UserDTO:
 DTO: a data transfer object that carries data between system processes.
 can be used between the API and server without exposing important information such as password or personal information.
 A 'UserDTO' only carries the raw id, user's name, and user's id.
+
+
+* ErrorResponse:
+The 'ErrorResponse' is another model for handling exceptions. It only contains a 'message' (String) as an attribute
+which we can customize the size or the property of the error message.
+
+
