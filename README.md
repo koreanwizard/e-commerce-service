@@ -24,3 +24,19 @@ It provides essential features for user management, product handling, and order 
    ```bash
    git clone https://github.com/koreanwizard/e-commerce-service.git
 
+## Configuration
+
+The default Spring Boot configuration file (`application.properties`) includes a reference to the `application-mysql.properties` file using Spring Profiles. This allows for better separation of concerns, especially for the database configuration.
+
+In the `application.properties` file, the following line is included to load the MySQL-specific configurations: spring.profiles.include=mysql
+
+Before running the application, make sure to configure your MySQL database connection by editing the `application-mysql.properties` file.
+
+Example of `application-mysql.properties` file:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
