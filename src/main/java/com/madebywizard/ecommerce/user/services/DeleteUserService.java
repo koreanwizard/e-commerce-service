@@ -1,6 +1,7 @@
 package com.madebywizard.ecommerce.user.services;
 
 import com.madebywizard.ecommerce.Command;
+import com.madebywizard.ecommerce.exceptions.UserNotFoundException;
 import com.madebywizard.ecommerce.user.UserRepository;
 import com.madebywizard.ecommerce.user.model.User;
 import org.springframework.http.HttpStatus;
@@ -28,10 +29,6 @@ public class DeleteUserService implements Command<Integer, Void> { // temporaril
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
-        /*
-        an exception handler will be added in here
-        */
-
-        return null;
+        throw new UserNotFoundException();
     }
 }
