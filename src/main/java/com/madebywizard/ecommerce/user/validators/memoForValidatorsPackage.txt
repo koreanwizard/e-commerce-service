@@ -1,0 +1,12 @@
+UserValidator:
+This object includes an 'execute' method with 'User' parameter.
+It checks every specific attribute from a new 'User' object.
+It will be executed when we send 'POST' or 'PUT' request.
+Because we are creating (or updating) a data so we need to check if those new aspects are valid.
+If one of the condition is true from the 'execute' method, it will throw an UserNotValidException
+with a specific 'ErrorMessages' enum.
+
+isAlphabetic: checks if our current string is alphabetical.
+isAlphanumeric: checks if our current string is alphanumerical.
+isValidDate: checks if our current 'LocalDate' object contains a proper format
+             it requires a "yyyy-MM-dd" format
