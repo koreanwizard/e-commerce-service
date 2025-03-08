@@ -18,6 +18,16 @@ car 클래스 안에 engine 클래스가 instance로 정의 되있다? 가솔린
 reference: https://developer.android.com/training/dependency-injection#:~:text=Dependency%20injection%20(DI)%20is%20a,Ease%20of%20refactoring
 
 
+'Optional' object:
+The 'Optional' container object is useful to handle exceptions.
+If our JpaRepository methods such as 'findAll' or 'get' returns a null, it can occur 'NoSuchElementException.'
+This should be handled by following methods:'orElseThrow,' 'orElse(null),' etc
+but if we use an 'Optional' object with a certain generic (such as 'User'), we can easily handle it by
+using 'isPresent' method. If the 'Optional' object contains an 'User' object that includes an existing id,
+it returns true (otherwise false). This is used in most of the 'UserService' classes which actively use JpaRepository
+methods.
+
+
 
 
 'CreateUserService' class:
@@ -25,15 +35,33 @@ reference: https://developer.android.com/training/dependency-injection#:~:text=D
 
 
 'GetUsersService' class:
-* Explanation of  GetUsersService -> execute method -> users.stream().map(UserDTO::new).toList()
+* The logic of  GetUsersService -> 'execute' method -> users.stream().map(UserDTO::new).toList()
     - stream(): creates a 'Stream' object to filter or modify data.
     - map(): apply every element in the stream with a certain function.
     - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
+    - toList(): change stream to a list
+
+
+
 
 'GetUserService' class:
 
 
+
+
+'SearchUserService' class:
+* The logic of 'execute' method from this class is similar to the 'execute' method from GetUsersService.
+    - ok(): creates a response with 200 OK status (passing findByLastNameContaining(lastName) as a body -> this is a List<User>)
+    - stream(): creates a 'Stream' object to filter or modify data.
+    - map(): apply every element in the stream with a certain function.
+    - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
+    - toList(): change stream to a list
+
+
+
+
 'UpdateUserService' class:
+
 
 
 'DeleteUserService' class:
