@@ -1,6 +1,7 @@
 package com.madebywizard.ecommerce.user.services;
 
 import com.madebywizard.ecommerce.Query;
+import com.madebywizard.ecommerce.exceptions.UserNotFoundException;
 import com.madebywizard.ecommerce.user.UserRepository;
 import com.madebywizard.ecommerce.user.model.User;
 import com.madebywizard.ecommerce.user.model.UserDTO;
@@ -27,12 +28,6 @@ public class GetUserService implements Query<Integer, UserDTO> {
             return ResponseEntity.ok(new UserDTO(userOptional.get()));
         }
 
-
-        /*
-        an exception handler will be added in here to check our database contains
-        a data that includes the certain input integer as a raw id.
-        */
-
-        return null;
+        throw new UserNotFoundException();
     }
 }
