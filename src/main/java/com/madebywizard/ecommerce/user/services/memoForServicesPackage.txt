@@ -35,7 +35,7 @@ methods.
 
 
 'GetUsersService' class:
-* The logic of  GetUsersService -> 'execute' method -> users.stream().map(UserDTO::new).toList()
+* The logic of GetUsersService -> 'execute' method -> users.stream().map(UserDTO::new).toList()
     - stream(): creates a 'Stream' object to filter or modify data.
     - map(): apply every element in the stream with a certain function.
     - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
@@ -56,6 +56,9 @@ methods.
     - map(): apply every element in the stream with a certain function.
     - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
     - toList(): change stream to a list
+    *** IMPORTANT: This method returns a list of 'UserDTO' that contains 'User' object that CONTAINS (NOT EQUAL TO)
+                   a certain last name.
+                   ex) if the input 'lastName' = "Kim", these last names contain the word "Kim": Kim, Kimberley, Hakim, Lakimson
 
 
 
