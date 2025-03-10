@@ -1,0 +1,51 @@
+Test Application:
+- contextLoads():
+  This is a sanity check (a test that should always pass). Bugs or compile issues are existing if this fails.
+
+
+
+GetUserServiceTest:
+- given_user_exists_when_get_user_service_return_user_dto:
+  Given (a pre-conditions that are needed to test): create a 'User' object and set every attribute
+  When (a specification of the test): call 'execute' method from 'GetUserService'
+  Then (an expectation of the test): check if the response that is created from When section
+                                     is equal to the response that is newly created by using the user object
+                                     that is created from the Given section
+                                     -> When 색션에서 만든 response가 Given 색션에서 만든 user 객체로
+                                        만들어진 UserDTO 가 담겨있는 ResponseEntity인지 확인하는거임
+                                     -> 마지막은 userReponsitory가 딱 한번 호출 됐는지 확인하는거임
+
+
+- given_user_does_not_exist_when_get_user_service_throw_user_not_found_exception:
+  Given: find a 'User' object by id: 1 (it's a non-existing user) and returns ->'Optional.empty()'
+  When & Then: throw an exception (a 'UserNotFoundException' after calling the 'execute' method from 'GetUserService'
+    -> assertThrows(ExceptionType.class, executable):
+       - an 'ExceptionType.class' is an expected exception class
+       - an 'executable' is a lambda expression (the 'execute' method with no parameters from 'Executable' interface and
+         that's why we typed empty parentheses). the 'execute' method from 'GetUserService' will throw an exception
+         if it's using a non-existing id.
+
+
+
+
+
+SearchServiceTest:
+- given_user_last_name_exists_when_search_user_service_return_list_of_user_dto:
+  Given: 'User' objects with specific attributes (the 'UserRepository' will find users by their last name that contains "Kim"; it should return a list of users)
+          these are examples of last name that contains "Kim": Kim, Kimberley, Kimmoth, Hakim
+  When: call 'execute' method from 'SearchUserService' (contains as a 'List<UserDTO>' type of 'ResponseEntity')
+  Then: check if the response is equal to the response that is newly created by using the user objects from Given section.
+        check if the 'findByLastNameContaining' method is called only once.
+
+
+
+
+UserValidatorTest:
+- test_valid_first_and_last_name: testing invalid first and last name
+- test_valid_sex: testing invalid sex
+                  -> this method should be updated in the future:
+                     * if user input a string (not a character) it should also throw an exception
+                     * can change the data type of the 'sex' attribute from 'User' model (char -> String)
+                     * if data type modified -> check the length of the string before check if
+                                                'sex' attribute is one of the characters: M | F
+- test_valid_user_id_and_password: testing invalid user id and password
