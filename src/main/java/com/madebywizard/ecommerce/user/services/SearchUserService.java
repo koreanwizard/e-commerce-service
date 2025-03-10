@@ -24,7 +24,4 @@ public class SearchUserService implements Query<String, List<UserDTO>> {
                 .map(UserDTO::new)
                 .toList());
     }
-
-
-
 }

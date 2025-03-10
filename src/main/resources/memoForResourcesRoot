@@ -1,0 +1,16 @@
+Levels of Abstraction:
+    - Database: Use SQL commands to interact with relational database directly
+                to get, update, or delete data (MySQL Workbench).
+    - JDBC: A Java Database Connectivity. It is a stepping stone that connects
+            raw Java codes to MySQL database. This connection has been built
+            using 'application.properties' file.
+    - JPA: A Java Persistence API. It is a specific API that lets Java to connect
+           SQL database.
+    - Hibernates: An Object-Relational Mapper (ORM) that facilitates interaction between 
+                  Java applications and relational databases. It implements the JPA specification 
+                  and maps Java objects to database tables, handling database operations as well.
+    - Spring Data JPA: An abstraction that allows programmers to write simple Java methods,
+                        and Spring Data JPA automatically generate SQL queries using ORM to
+                        interact with the database.
+
+
