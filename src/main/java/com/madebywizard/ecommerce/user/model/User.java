@@ -36,9 +36,9 @@ public class User {
     private String userPassword;  // password should be encrypted but just store it as string for an educational purpose
 
 
-    User() {}
+    public User() {}
 
-    User(String firstName, String lastName, char sex, LocalDate birthDate, String userId, String userPassword) {
+    public User(String firstName, String lastName, char sex, LocalDate birthDate, String userId, String userPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
