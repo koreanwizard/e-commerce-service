@@ -11,9 +11,7 @@ import java.time.format.DateTimeParseException;
 
 public class UserValidator {
 
-    private UserValidator() {
-
-    }
+    private UserValidator() {}
 
     public static void execute(User user) {
 
@@ -25,7 +23,9 @@ public class UserValidator {
             throw new UserNotValidException(ErrorMessages.ALPHABETIC_REQUIRED.getMessage());
         }
 
-        if (!(user.getSex() == 'M' || user.getSex() == 'F') || !isAlphabetic(String.valueOf(user.getSex()))) {
+        if (!StringUtils.hasText(Character.toString(user.getSex())) ||
+                !(user.getSex() == 'M' || user.getSex() == 'F') ||
+                !isAlphabetic(String.valueOf(user.getSex()))) {
             throw new UserNotValidException(ErrorMessages.ONLY_M_OR_F_REQUIRED.getMessage());
         }
 
@@ -34,16 +34,16 @@ public class UserValidator {
         }
 
 
+        if (!StringUtils.hasText(user.getUserId()) || !StringUtils.hasText(user.getUserPassword())) {
+            throw new UserNotValidException(ErrorMessages.ELEMENT_REQUIRED.getMessage());
+        }
+
         if (user.getUserId().length() < 4 || user.getUserPassword().length() < 4) {
             throw new UserNotValidException(ErrorMessages.USER_ID_AND_PASSWORD_LENGTH.getMessage());
         }
 
         if (!isAlphanumeric(user.getUserId())) {
             throw new UserNotValidException(ErrorMessages.ALPHABETIC_REQUIRED.getMessage());
-        }
-
-        if (!StringUtils.hasText(user.getUserId())) {
-            throw new UserNotValidException(ErrorMessages.ELEMENT_REQUIRED.getMessage());
         }
 
 
@@ -68,7 +68,7 @@ public class UserValidator {
         return true;
     }
 
-    public static boolean isValidDate(LocalDate date) {
+    public static boolean isValidDate(LocalDate date) { // not sure this method is working will be fixed in the future
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate.parse(date.toString(), formatter); // if LocalDate.parse raise an DateTimeParseException
