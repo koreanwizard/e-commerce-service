@@ -1,4 +1,4 @@
-package com.madebywizard.ecommerce.user.model;
+package com.madebywizard.ecommerce.item.model;
 
 public class ErrorResponse {
 

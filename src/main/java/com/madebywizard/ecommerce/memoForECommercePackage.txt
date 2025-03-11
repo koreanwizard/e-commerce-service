@@ -3,10 +3,10 @@ A design pattern that categorizes operations into two categories
 -> queries (read data)
 -> commands (update or modify data)
 
-We use two different interfaces (Query and Command) about user services.
+We use two different interfaces (Query and Command) about item services.
 
-The 'create', 'delete', and 'update' user services can possibly modify data so
+The 'create', 'delete', and 'update' item services can possibly modify data so
 it can be defined as 'command' type operation.
 
-However, the 'get' user service only read data without changing it so it can be
+However, the 'get' item service only read data without changing it so it can be
 defined as a 'query' type operation.

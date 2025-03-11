@@ -1,0 +1,70 @@
+ItemController:
+    HTTP Requests are created while items interacting a web browser (ex: chrome).
+
+    The server receives and response to these requests,
+    while observing the database to get or send data back to the web browser.
+
+    HTTP Request:
+    - URL (ex: www.google.com/business/)
+    - query string parameters
+    - header
+    - request body.
+
+    HTTP Response:
+    - response body (or String),
+    - HTTP Status
+    ex) 200 OK -> request succeeded
+    ex) 400 Bad Request -> server cannot or will not process the request due to specific errors.
+
+
+'ItemController' HTTP Methods and CRUD:
+
+
+    * createSingeItem (@PostMapping)
+        - RequestBody is an 'Item' object and returns the 'ItemDTO' by calling 'execute' method from 'CreateItemService'
+
+
+    * getEveryItem (@GetMapping)
+        - returns every item that are existing inside the database: will be return as a list of ItemDTO.
+
+    * getSingleItem (@GetMapping)
+        - returns a single item that contains passed id (@PathVariable is required to pass in the item id).
+
+    * searchItemByItemName (@GetMapping)
+        - If a non-existing item has given to the query (ex: product/search?lastName=NonExistingLastName)
+          or if it doesn't receive any query variables (ex: product/search?lastName=) it still works.
+          However, if the query variable is not mentioned (ex: product/search)
+          this will give an error ("Required parameter 'lastName' is not present.")
+          'Postman' (an API platform) has been used to test these events.
+
+    * updateSingleItem (@PutMapping)
+        - updates the item that includes a certain id. the item that want to be updated will be the body of request
+        - the 'UpdateItemCommand' class has been created to store item's id and the actual item.
+        - the 'execute' method from 'UpdateItemService' uses a 'save' Jpa method to update attributes.
+
+
+
+
+ItemRepository:
+    An interface that inherits the JpaRepository with 'Item' as a generic T and 'Integer' as ID.
+    This provides free JpaRepository methods that helps to read or modify data from the database.
+    ex) findAll(), deleteAll()
+
+    If there is a query that is too complex for JPA, we can create a custom query by using @Query annotation.
+    ex) @Query(SELECT item FROM Item item WHERE item.itemName LIKE %:keyword%)
+
+    * findByItemNameContaining
+        - The 'Containing' keyword refers following JPQL snippet:
+        SELECT i FROM Item i WHERE i.itemName LIKE CONCAT('%', :keyword, '%')
+        This is almost same as the raw customized query from above, but it includes the CONCAT.
+        It is a JPQL function that joins two or more strings into one string.
+
+
+
+
+@PathVariable: used when the value (ex: 'id') is a part of the URL structure
+@RequestParam: used when passing optional filters (ex: 'itemName')
+We can specify the exact path/query variable after these annotations.
+@RequestParam("itemName"): annotation 뒤에 들어가는 optional query variable 를 표시해주니까
+postman 에서 테스트 해볼 때 에러가 안 났었음.
+

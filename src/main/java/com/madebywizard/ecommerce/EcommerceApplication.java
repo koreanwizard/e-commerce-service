@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EcommerceApplication {
 
 	public static void main(String[] args) {
-		System.out.println("hello world");
+		System.out.println("ECOMMERCE SERVICE HAS BEEN STARTED");
 		SpringApplication.run(EcommerceApplication.class, args);
 	}
 

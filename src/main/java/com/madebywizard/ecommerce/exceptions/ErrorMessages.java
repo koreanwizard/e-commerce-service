@@ -1,12 +1,14 @@
 package com.madebywizard.ecommerce.exceptions;
 
 public enum ErrorMessages {
-    USER_NOT_FOUND("User Not Found"),
+    ITEM_NOT_FOUND("Item Not Found"),
     ELEMENT_REQUIRED("this is a required element"),
-    ALPHABETIC_REQUIRED("should be alphabetic"),
-    ONLY_M_OR_F_REQUIRED("should be one of the character: M / F"),
-    BIRTHDATE_FORMAT_REQUIRED("check your birth date format (YYYY-MM-DD)"),
-    USER_ID_AND_PASSWORD_LENGTH("length should be greater than 3");
+    INVALID_TYPE("invalid type"),
+    INVALID_SIZE("invalid size"),
+    INVALID_ITEM_NAME("invalid item name"),
+    INVALID_ITEM_COLOR("invalid color name"),
+    INVALID_REMAINING_ITEM("the number of remaining item cannot be negative"),
+    INVALID_ENUM("invalid enum");
 
     // add additional error messages into this enum list
     // it helps us to manage every error message in one place

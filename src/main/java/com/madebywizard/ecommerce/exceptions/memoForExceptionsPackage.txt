@@ -1,5 +1,5 @@
-UserNotFoundException:
-This exception occurs when user is not found. The error message is an 'ErrorMessages' enum object.
+ItemNotFoundException:
+This exception occurs when an item is not found. The error message is an 'ErrorMessages' enum object.
 It uses a 'getMessage' method to get the message (String).
 
 

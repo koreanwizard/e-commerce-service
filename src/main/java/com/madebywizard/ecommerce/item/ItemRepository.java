@@ -1,17 +1,17 @@
-package com.madebywizard.ecommerce.user;
+package com.madebywizard.ecommerce.item;
 
 
-import com.madebywizard.ecommerce.user.model.User;
+import com.madebywizard.ecommerce.item.model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     // spring data jpa
-    List<User> findByLastNameContaining(String lastName);
+    List<Item> findByItemNameContaining(String itemName);
 
     // we can also use JPQL to create a customized query but in this project we will just use the Jpa.
 
