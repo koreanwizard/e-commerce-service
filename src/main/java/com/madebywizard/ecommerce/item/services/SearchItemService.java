@@ -16,7 +16,7 @@ public class SearchItemService implements Query<String, List<ItemDTO>> { // Inpu
     public SearchItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
-    
+
     @Override
     public ResponseEntity<List<ItemDTO>> execute(String itemName) {
         return ResponseEntity.ok(itemRepository.findByItemNameContainingIgnoreCase(itemName)
