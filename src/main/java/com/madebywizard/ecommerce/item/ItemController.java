@@ -4,12 +4,7 @@ package com.madebywizard.ecommerce.item;
  import com.madebywizard.ecommerce.item.model.UpdateItemCommand;
  import com.madebywizard.ecommerce.item.model.Item;
  import com.madebywizard.ecommerce.item.model.ItemDTO;
- import com.madebywizard.ecommerce.item.services.CreateItemService;
- import com.madebywizard.ecommerce.item.services.DeleteItemService;
- import com.madebywizard.ecommerce.item.services.GetItemService;
- import com.madebywizard.ecommerce.item.services.GetItemsService;
- import com.madebywizard.ecommerce.item.services.SearchItemService;
- import com.madebywizard.ecommerce.item.services.UpdateItemService;
+ import com.madebywizard.ecommerce.item.services.*;
  import org.springframework.http.MediaType;
  import org.springframework.http.ResponseEntity;
  import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,13 +34,16 @@ public class ItemController {
 
     private final SearchItemService searchItemService;
 
+    private final SearchItemByColorService searchItemByColorService;
+
 
     public ItemController(CreateItemService createItemService,
                           GetItemsService getItemsService,
                           GetItemService getItemService,
                           UpdateItemService updateItemService,
                           DeleteItemService deleteItemService,
-                          SearchItemService searchItemService) {
+                          SearchItemService searchItemService,
+                          SearchItemByColorService searchItemByColorService) {
 
         this.createItemService = createItemService;
         this.getItemsService = getItemsService;
@@ -53,28 +51,17 @@ public class ItemController {
         this.updateItemService = updateItemService;
         this.deleteItemService = deleteItemService;
         this.searchItemService = searchItemService;
+        this.searchItemByColorService = searchItemByColorService;
     }
 
+
+
+    // ONLY ADMINS CAN DO THESE OPERATIONS
+    // -----------------------------------------------------------------------------------------------------------
 
     @PostMapping("/item")
     public ResponseEntity<ItemDTO> createSingeItem(@RequestBody Item item) {
         return createItemService.execute(item);
-    }
-
-    // adding headers (type of media that item receive)
-    @GetMapping(value="/items", produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<ItemDTO>> getEveryItem() {
-        return getItemsService.execute(null);
-    }
-
-    @GetMapping("/item/{id}")
-    public ResponseEntity<ItemDTO> getSingleItem(@PathVariable("id") Integer id) {
-        return getItemService.execute(id);
-    }
-
-    @GetMapping("/item/search")
-    public ResponseEntity<List<ItemDTO>> searchItemByItemName(@RequestParam("itemName") String itemName) {
-        return searchItemService.execute(itemName);
     }
 
     @PutMapping("/item/{id}")
@@ -87,4 +74,42 @@ public class ItemController {
     public ResponseEntity<Void> deleteSingleItem(@PathVariable("id") Integer id) {
         return deleteItemService.execute(id);
     }
+    // -----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    // BOTH ADMIMS AND USERS CAN DO THESE OPERATIONS
+    // -----------------------------------------------------------------------------------------------------------
+
+
+    // adding headers (type of media that item receive)
+    @GetMapping(value="/items", produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<ItemDTO>> getEveryItem() {
+        return getItemsService.execute(null);
+    }
+
+    @GetMapping("/item/{id}")
+    public ResponseEntity<ItemDTO> getSingleItem(@PathVariable("id") Integer id) {
+        return getItemService.execute(id);
+    }
+
+    @GetMapping("/item/search/name")
+    public ResponseEntity<List<ItemDTO>> searchItemByItemName(@RequestParam("itemName") String itemName) {
+        return searchItemService.execute(itemName);
+    }
+
+    @GetMapping("/item/search/color")
+    public ResponseEntity<List<ItemDTO>> searchItemByItemColor(@RequestParam("itemColor") String itemColor) {
+        return searchItemByColorService.execute(itemColor);
+    }
+
+
+    // -----------------------------------------------------------------------------------------------------------
 }
