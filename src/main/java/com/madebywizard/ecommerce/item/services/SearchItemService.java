@@ -16,10 +16,10 @@ public class SearchItemService implements Query<String, List<ItemDTO>> { // Inpu
     public SearchItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
-
+    
     @Override
-    public ResponseEntity<List<ItemDTO>> execute(String lastName) {
-        return ResponseEntity.ok(itemRepository.findByItemNameContaining(lastName)
+    public ResponseEntity<List<ItemDTO>> execute(String itemName) {
+        return ResponseEntity.ok(itemRepository.findByItemNameContainingIgnoreCase(itemName)
                 .stream()
                 .map(ItemDTO::new)
                 .toList());
