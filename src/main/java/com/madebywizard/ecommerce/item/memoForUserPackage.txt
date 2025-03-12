@@ -53,11 +53,18 @@ ItemRepository:
     If there is a query that is too complex for JPA, we can create a custom query by using @Query annotation.
     ex) @Query(SELECT item FROM Item item WHERE item.itemName LIKE %:keyword%)
 
-    * findByItemNameContaining
-        - The 'Containing' keyword refers following JPQL snippet:
-        SELECT i FROM Item i WHERE i.itemName LIKE CONCAT('%', :keyword, '%')
+    * findByItemNameContainingIgnoreCase
+        - It finds every item that contains a specific keyword.
+        - The 'ContainingIgnoreCase' keyword refers following JPQL snippet:
+        SELECT item FROM items WHERE LOWER(item_name) LIKE LOWER(CONCAT('%', ?, '%'));
         This is almost same as the raw customized query from above, but it includes the CONCAT.
         It is a JPQL function that joins two or more strings into one string.
+        WHERE LOWER(item_name) -> converts the 'item_name' column to lowercase
+        LIKE -> an SQL operator that matches a pattern (it use with '%' when partial match is required)
+        LOWER(CONCAT('%', ?, '%')) -> - a wildcard search with containing parameter placeholder '?'
+                                      this will be replaced by the actual word that user inserted to find items
+                                      - the CONCAT will add up every element and lowercase the word that user typed in
+        Intuitive Example (just for a learning purpose): LIKE %lower_cased_string_that_user_typed_in%
 
 
 
