@@ -128,14 +128,14 @@ public class Item {
         if (!(o instanceof Item)) {
             return false;
         }
-        Item user = (Item) o;
-        return Objects.equals(this.id, user.id) &&
-                Objects.equals(this.itemName, user.itemName) &&
-                Objects.equals(this.itemType, user.itemType) &&
-                Objects.equals(this.itemSize, user.itemSize) &&
-                Objects.equals(this.itemColor, user.itemColor) &&
-                Objects.equals(this.itemPrice, user.itemPrice) &&
-                Objects.equals(this.remainingItem, user.remainingItem);
+        Item item = (Item) o;
+        return Objects.equals(this.id, item.id) &&
+                Objects.equals(this.itemName, item.itemName) &&
+                Objects.equals(this.itemType, item.itemType) &&
+                Objects.equals(this.itemSize, item.itemSize) &&
+                Objects.equals(this.itemColor, item.itemColor) &&
+                Objects.equals(this.itemPrice, item.itemPrice) &&
+                Objects.equals(this.remainingItem, item.remainingItem);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class Item {
                 ", itemSize=" + this.itemSize +
                 ", itemColor='" + this.itemColor + "'" +
                 ", itemPrice='" + this.itemPrice + "'" +
-                ", remainingItem=" + this.remainingItem + "'" +
+                ", remainingItem='" + this.remainingItem + "'" +
                 "}";
     }
 }
