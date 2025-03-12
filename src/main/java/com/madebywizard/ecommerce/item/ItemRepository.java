@@ -11,9 +11,13 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     // spring data jpa
-    List<Item> findByItemNameContaining(String itemName);
+    List<Item> findByItemNameContainingIgnoreCase(String itemName);
 
-    // we can also use JPQL to create a customized query but in this project we will just use the Jpa.
+    List<Item> findByItemColorContainingIgnoreCase(String itemColor);
+
+    // we can also use JPQL to create a customized query
+
+
 
 
 }
