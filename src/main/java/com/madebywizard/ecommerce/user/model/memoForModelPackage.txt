@@ -1,0 +1,47 @@
+Address:
+an object that contains every information of an address (address will be associated to a single user)
+will not allow sharing addresses temporarily
+
+* street_address: name of the street address
+* unitNumber: a unit number (can be the number of office or apartment)
+* city: name of the city
+* state: name of the state (province or district -> this is an optional attribute: nullable)
+* postal_code: a postal code (it's a String because some country's postal code includes a hyphen or starts from 0)
+* country: the country name (will be an upper-case string)
+* userId: a user's id (numerical id) (this is required for a 'OneToMany' relational mapping process)
+
+
+Cart:
+an object that contains the number of item.
+
+* itemCount: a number of items that are stored in the cart
+
+*** In the future, the 'Cart' object will contain a list of 'Item' objects.
+
+
+User:
+an object that contains user's information.
+
+* firstName: user's first name
+* lastName: user's last name
+* gender: user's gender
+* email: user's email (email validator will be added in the future)
+* cart: user's cart
+        user and cart have 'OneToOne' relationship because both of them can be associated with one cart (or user)
+* addresses: every address that user registered (a list of 'Address' object)
+             user and address have 'OneToMany' relationship because user can store multiple addresses
+             and each address are associated to a one user.
+
+-> CascadeType.ALL: this applies all operations (insert, update, delete, refresh, detach) to child entities.
+                    when parent entities are updated, the child entities will also follow the operation
+
+
+
+
+UserDTO:
+a data transfer object for 'User' object. this will only contain certain information of user
+
+* id: an integer id of a certain user
+* lastName: user's last name
+* cart: user's cart
+* addresses: user's addresses that are registered
