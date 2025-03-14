@@ -1,0 +1,10 @@
+UserController:
+A controller that will contain every CRUD requests
+
+- getUserById: a GET request that returns a specific 'User' object that contains a specific 'id'.
+
+
+
+
+UserRepository:
+An repository that inherits JpaRepository (generic value T: 'User' object, ID: Integer)
