@@ -10,14 +10,9 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    // spring data jpa
     List<Item> findByItemNameContainingIgnoreCase(String itemName);
 
     List<Item> findByItemColorContainingIgnoreCase(String itemColor);
 
-    // we can also use JPQL to create a customized query
-
-
-
-
+    // use JPQL to create a customized query (if needed)
 }
