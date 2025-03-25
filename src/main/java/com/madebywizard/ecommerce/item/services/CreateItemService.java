@@ -9,9 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class CreateItemService implements Command<Item, ItemDTO> { // input: Item, output: ItemDTO
-
 
     private final ItemRepository itemRepository; // access of the 'Item' repository
 
@@ -26,7 +26,7 @@ public class CreateItemService implements Command<Item, ItemDTO> { // input: Ite
         and pass the newly saved 'Item' object into the new 'ItemDTO' object
          */
 
-        ItemValidator.execute(item); // validator
+        ItemValidator.validate(item); // validator
 
         Item savedItem = itemRepository.save(item);
         System.out.println(savedItem);

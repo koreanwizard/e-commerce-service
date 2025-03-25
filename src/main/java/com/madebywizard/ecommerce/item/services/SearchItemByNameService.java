@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SearchItemService implements Query<String, List<ItemDTO>> { // Input: Item's name, Output: List of ItemDTO
+public class SearchItemByNameService implements Query<String, List<ItemDTO>> { // Input: Item's name, Output: List of ItemDTO
 
     private final ItemRepository itemRepository;
 
-    public SearchItemService(ItemRepository itemRepository) {
+    public SearchItemByNameService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
 

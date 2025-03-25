@@ -15,7 +15,6 @@ import java.util.Optional;
 @Service
 public class UpdateItemService implements Command<UpdateItemCommand, ItemDTO> { // Input: UpdateItemCommand, Output: ItemDTO
 
-
     private final ItemRepository itemRepository;
 
     public UpdateItemService(ItemRepository itemRepository) {
@@ -29,12 +28,12 @@ public class UpdateItemService implements Command<UpdateItemCommand, ItemDTO> { 
         'save' JpaRepository method saves but also updates the data
          */
 
-        Optional<Item> itemOptional = itemRepository.findById(command.getId());
+        Optional<Item> itemOptional = itemRepository.findById(command.id());
         if (itemOptional.isPresent()) {
-            Item item = command.getItem();
-            item.setId(command.getId());
+            Item item = command.item();
+            item.setId(command.id());
 
-            ItemValidator.execute(item); // validator
+            ItemValidator.validate(item); // validator
 
             itemRepository.save(item);
             return ResponseEntity.ok(new ItemDTO(item));

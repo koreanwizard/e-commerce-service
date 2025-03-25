@@ -27,14 +27,12 @@ Optional:
   methods.
 
 
-
 * CreateItemService:
   - A service that is used to create an item. It implements a 'Command' interface because it's creating a new data.
   - Use the 'ItemRepository' to access 'Item' objects.
   - validate the new 'Item' object by using 'ItemValidator.execute' method.
   - use the 'save' JpaRepository method to save the item into the item repository
   - returns a ResponseEntity (status: 201, body: new ItemDTO object with passing new item object).
-
 
 
 * GetItemsService:
@@ -48,7 +46,6 @@ Optional:
  - returns a ResponseEntity (status: 200, body: a list of ItemDOT objects).
 
 
-
 * GetUserService:
  - A service that reads a single item by using the id (an Integer type of primary key).
  - Implements the 'Query' interface because it only reads a single existing data.
@@ -56,7 +53,6 @@ Optional:
  - 'findById' is a JpaRepository method: literally gets the data by corresponding input id.
  - if exists -> return a ResponseEntity (status: 200, body: a new ItemDTO).
  - otherwise -> throws an ItemNotFoundException.
-
 
 
 * SearchItemByNameService:
@@ -80,7 +76,6 @@ Optional:
  - Contains a same logic as the 'SearchItemByNameService'.
 
 
-
 * UpdateUserService:
  - A service that updates a certain item's attributes.
  - Implements the 'Command' interface because it changes certain data of a certain item.
@@ -90,13 +85,6 @@ Optional:
 * DeleteUserService:
  - A service that deletes a certain item.
  - The id (primary key) will be used as an input aspect to find the item.
+ - throws an exception if item is not found.
  - 'deleteById' is a JpaRepository method that deletes a certain data.
- - returns a ResponseEntity (status: 401
-
-
-
-
-
-
-
-
+ - returns a ResponseEntity (status: 204)
