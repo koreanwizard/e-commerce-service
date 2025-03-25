@@ -3,6 +3,7 @@ package com.madebywizard.ecommerce.user.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -32,13 +33,14 @@ public class Address {
     @Column(name="country")
     private String country;
 
-    @Column(name="user_id") // this is for OneToMany
-    private Integer userId;
+
+    @ManyToMany(mappedBy = "addresses") // a bidirectional mapping with User object
+    private List<User> users;
 
 
     public Address() {}
 
-    public Address(Integer id, String streetAddress, String unitNumber, String city, String state, String postalCode, String country, Integer userId) {
+    public Address(Integer id, String streetAddress, String unitNumber, String city, String state, String postalCode, String country, List<User> users) {
         this.id = id;
         this.streetAddress = streetAddress;
         this.unitNumber = unitNumber;
@@ -46,7 +48,7 @@ public class Address {
         this.state = state;
         this.postalCode = postalCode;
         this.country = country;
-        this.userId = userId;
+        this.users = users;
     }
 
     public Integer getId() {
@@ -105,12 +107,12 @@ public class Address {
         this.country = country;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public List<User> getUsers() {
+        return this.users;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override
@@ -125,12 +127,12 @@ public class Address {
                 && Objects.equals(this.state, address.state)
                 && Objects.equals(this.postalCode, address.postalCode)
                 && Objects.equals(this.country, address.country)
-                && Objects.equals(this.userId, address.userId);
+                && Objects.equals(this.users, address.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.streetAddress, this.unitNumber, this.city, this.state, this.postalCode, this.country, this.userId);
+        return Objects.hash(this.id, this.streetAddress, this.unitNumber, this.city, this.state, this.postalCode, this.country, this.users);
     }
 
     @Override
@@ -138,11 +140,11 @@ public class Address {
         return "Address{" + "id=" + this.id +
                 ", streetAddress='" + this.streetAddress + "'" +
                 ", unitNumber='" + this.unitNumber + "'" +
-                ", city=" + this.city +
+                ", city='" + this.city + "'" +
                 ", state='" + this.state + "'" +
                 ", postalCode='" + this.postalCode + "'" +
                 ", country='" + this.country + "'" +
-                ", userId=" + this.userId +
+                ", users=" + this.users +
                 "}";
     }
 }
