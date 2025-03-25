@@ -7,9 +7,9 @@ public enum ErrorMessages {
     INVALID_SIZE("invalid size"),
     INVALID_ITEM_NAME("invalid item name"),
     INVALID_ITEM_COLOR("invalid color name"),
-    INVALID_REMAINING_ITEM("the number of remaining item cannot be negative"),
+    INVALID_ITEM_PRICE("item price should be greater than zero"),
+    INVALID_ITEM_QUANTITY("the item quantity cannot be negative"),
     INVALID_ENUM("invalid enum"),
-
     // user exceptions
     USER_NOT_FOUND("User Not Found");
 
