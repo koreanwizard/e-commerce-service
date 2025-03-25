@@ -57,11 +57,11 @@ public class ItemDTO {
         if (!(o instanceof ItemDTO)) {
             return false;
         }
-        ItemDTO userDTO = (ItemDTO) o;
-        return Objects.equals(this.id, userDTO.id) &&
-                Objects.equals(this.itemName, userDTO.itemName) &&
-                Objects.equals(this.itemType, userDTO.itemType) &&
-                Objects.equals(this.itemPrice, userDTO.itemPrice);
+        ItemDTO itemDTO = (ItemDTO) o;
+        return Objects.equals(this.id, itemDTO.id) &&
+                Objects.equals(this.itemName, itemDTO.itemName) &&
+                Objects.equals(this.itemType, itemDTO.itemType) &&
+                Objects.equals(this.itemPrice, itemDTO.itemPrice);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ItemDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" + "id=" + this.id +
+        return "ItemDTO{" + "id=" + this.id +
                 ", itemName='" + this.itemName + "'" +
                 ", itemType='" + this.itemType + "'" +
                 ", itemPrice='" + this.itemPrice + "'" + "}";

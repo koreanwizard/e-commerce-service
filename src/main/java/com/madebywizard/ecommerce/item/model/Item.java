@@ -1,9 +1,12 @@
 package com.madebywizard.ecommerce.item.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.madebywizard.ecommerce.user.model.Cart;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -35,22 +38,37 @@ public class Item {
     private String itemColor;
 
     // DECIMAL(10, 2) -> $10.99
-    @Column(name = "item_price", precision = 10, scale = 2) // precision: max-value that can be stored: 99999999.99, scale: number of digits after the decimal : ex) 12.34
+    // precision: max-value that can be stored: 99999999.99, scale: number of digits after the decimal : ex-> 12.34
+    @Column(name = "item_price", precision = 10, scale = 2)
     private BigDecimal itemPrice;
 
     @Column(name = "remaining_item")
     private int remainingItem;
+
+    @Column(name="cart_id")
+    private Integer cartId;
+
+    // Many-to-many relationship with carts because every item can exist in every cart.
+    // While creating a JSON response, circular reference can occur and @JsonIgnore helps to avoid the circular reference.
+    @ManyToMany(mappedBy="items")
+    @JsonIgnore
+    private List<Cart> carts;
+
 
 
     public Item() {
 
     }
 
-    public Item(int remainingItem) {
-        this.remainingItem = remainingItem;
-    }
-
-    public Item(Integer id, String itemName, ItemType itemType, ItemSize itemSize, String itemColor, BigDecimal itemPrice, int remainingItem) {
+    public Item(Integer id,
+                String itemName,
+                ItemType itemType,
+                ItemSize itemSize,
+                String itemColor,
+                BigDecimal itemPrice,
+                int remainingItem,
+                Integer cartId,
+                List<Cart> carts) {
         this.id = id;
         this.itemName = itemName;
         this.itemType = itemType;
@@ -58,6 +76,8 @@ public class Item {
         this.itemColor = itemColor;
         this.itemPrice = itemPrice;
         this.remainingItem = remainingItem;
+        this.cartId = cartId;
+        this.carts = carts;
     }
 
 
@@ -117,8 +137,21 @@ public class Item {
         this.remainingItem = remainingItem;
     }
 
+    public Integer getCartId() {
+        return this.cartId;
+    }
 
+    public void setCartId(Integer cartId) {
+        this.cartId = cartId;
+    }
 
+    public List<Cart> getCarts() {
+        return this.carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -135,7 +168,9 @@ public class Item {
                 Objects.equals(this.itemSize, item.itemSize) &&
                 Objects.equals(this.itemColor, item.itemColor) &&
                 Objects.equals(this.itemPrice, item.itemPrice) &&
-                Objects.equals(this.remainingItem, item.remainingItem);
+                Objects.equals(this.remainingItem, item.remainingItem) &&
+                Objects.equals(this.cartId, item.cartId) &&
+                Objects.equals(this.carts, item.carts);
     }
 
     @Override
@@ -147,7 +182,9 @@ public class Item {
                 this.itemSize,
                 this.itemColor,
                 this.itemPrice,
-                this.remainingItem
+                this.remainingItem,
+                this.cartId,
+                this.carts
         );
     }
 

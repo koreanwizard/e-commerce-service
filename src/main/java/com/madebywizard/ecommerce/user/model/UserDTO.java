@@ -43,9 +43,13 @@ public class UserDTO {
         this.cart = cart;
     }
 
-    public List<Address> getAddresses() { return this.addresses; }
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
 
-    public void setAddresses(List<Address> addresses) { this.addresses = addresses; }
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
     @Override
     public boolean equals(Object o) {

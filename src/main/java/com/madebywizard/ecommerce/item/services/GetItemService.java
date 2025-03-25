@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class GetItemService implements Query<Integer, ItemDTO> { // Input: item id, Output: ItemDTO
 
-
     private final ItemRepository itemRepository;
 
     public GetItemService(ItemRepository itemRepository) {

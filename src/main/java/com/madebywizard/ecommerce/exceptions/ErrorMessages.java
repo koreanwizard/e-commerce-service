@@ -8,7 +8,14 @@ public enum ErrorMessages {
     INVALID_ITEM_NAME("invalid item name"),
     INVALID_ITEM_COLOR("invalid color name"),
     INVALID_REMAINING_ITEM("the number of remaining item cannot be negative"),
-    INVALID_ENUM("invalid enum");
+    INVALID_ENUM("invalid enum"),
+
+    // user exceptions
+    USER_NOT_FOUND("User Not Found");
+
+
+
+
 
     // add additional error messages into this enum list
     // it helps us to manage every error message in one place

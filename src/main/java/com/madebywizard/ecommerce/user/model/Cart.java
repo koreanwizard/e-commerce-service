@@ -19,6 +19,16 @@ public class Cart {
     @Column(name = "item_count")
     private int itemCount;
 
+
+// Many-to-many relationship with items because every cart can contain every item.
+    @ManyToMany
+    @JoinTable(
+            name = "cart_item",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<Item> items;
+
     public Cart() {}
 
     public Cart(Integer id, int itemCount) {
@@ -52,7 +62,8 @@ public class Cart {
             return false;
         }
         Cart cart = (Cart) o;
-        return Objects.equals(this.id, cart.id) && Objects.equals(this.itemCount, cart.itemCount);
+        return Objects.equals(this.id, cart.id) &&
+                Objects.equals(this.itemCount, cart.itemCount);
     }
 
     @Override
