@@ -5,8 +5,10 @@ package com.madebywizard.ecommerce.item;
  import com.madebywizard.ecommerce.item.model.Item;
  import com.madebywizard.ecommerce.item.model.ItemDTO;
  import com.madebywizard.ecommerce.item.services.*;
+
  import org.springframework.http.MediaType;
  import org.springframework.http.ResponseEntity;
+
  import org.springframework.web.bind.annotation.DeleteMapping;
  import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +34,7 @@ public class ItemController {
 
     private final DeleteItemService deleteItemService;
 
-    private final SearchItemService searchItemService;
+    private final SearchItemByNameService searchItemByNameService;
 
     private final SearchItemByColorService searchItemByColorService;
 
@@ -42,7 +44,7 @@ public class ItemController {
                           GetItemService getItemService,
                           UpdateItemService updateItemService,
                           DeleteItemService deleteItemService,
-                          SearchItemService searchItemService,
+                          SearchItemByNameService searchItemByNameService,
                           SearchItemByColorService searchItemByColorService) {
 
         this.createItemService = createItemService;
@@ -50,7 +52,7 @@ public class ItemController {
         this.getItemService = getItemService;
         this.updateItemService = updateItemService;
         this.deleteItemService = deleteItemService;
-        this.searchItemService = searchItemService;
+        this.searchItemByNameService = searchItemByNameService;
         this.searchItemByColorService = searchItemByColorService;
     }
 
@@ -85,7 +87,7 @@ public class ItemController {
 
 
 
-    // BOTH ADMIMS AND USERS CAN DO THESE OPERATIONS
+    // BOTH ADMIN AND USERS CAN DO THESE OPERATIONS (AUTHENTICATION IS NOT REQUIRED)
     // -----------------------------------------------------------------------------------------------------------
 
 
@@ -102,7 +104,7 @@ public class ItemController {
 
     @GetMapping("/item/search/name")
     public ResponseEntity<List<ItemDTO>> searchItemByItemName(@RequestParam("itemName") String itemName) {
-        return searchItemService.execute(itemName);
+        return searchItemByNameService.execute(itemName);
     }
 
     @GetMapping("/item/search/color")
