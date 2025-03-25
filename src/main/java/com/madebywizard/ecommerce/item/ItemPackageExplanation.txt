@@ -13,8 +13,8 @@ ItemController:
     HTTP Response:
     - response body (or String),
     - HTTP Status
-    ex) 200 OK -> request succeeded
-    ex) 400 Bad Request -> server cannot or will not process the request due to specific errors.
+    ex: 200 OK -> request succeeded
+    ex: 400 Bad Request -> server cannot or will not process the request due to specific errors.
 
 
 'ItemController' HTTP Methods and CRUD:
@@ -37,11 +37,15 @@ ItemController:
           this will give an error ("Required parameter 'lastName' is not present.")
           'Postman' (an API platform) has been used to test these events.
 
+    * searchItemByItemColor (@GetMapping)
+        - Same logic as 'searchItemByItemName' Http method.
+
     * updateSingleItem (@PutMapping)
         - updates the item that includes a certain id. the item that want to be updated will be the body of request
         - the 'UpdateItemCommand' class has been created to store item's id and the actual item.
         - the 'execute' method from 'UpdateItemService' uses a 'save' Jpa method to update attributes.
 
+    
 
 
 
@@ -51,7 +55,7 @@ ItemRepository:
     ex) findAll(), deleteAll()
 
     If there is a query that is too complex for JPA, we can create a custom query by using @Query annotation.
-    ex) @Query(SELECT item FROM Item item WHERE item.itemName LIKE %:keyword%)
+    ex: @Query(SELECT item FROM Item item WHERE item.itemName LIKE %:keyword%)
 
     * findByItemNameContainingIgnoreCase
         - It finds every item that contains a specific keyword.
@@ -66,12 +70,12 @@ ItemRepository:
                                       - the CONCAT will add up every element and lowercase the word that user typed in
         Intuitive Example (just for a learning purpose): LIKE %lower_cased_string_that_user_typed_in%
 
-
+    * findByItemColorContainingIgnoreCase
+        - Same logic as 'findByItemNameContainingIgnoreCase'
 
 
 @PathVariable: used when the value (ex: 'id') is a part of the URL structure
 @RequestParam: used when passing optional filters (ex: 'itemName')
 We can specify the exact path/query variable after these annotations.
-@RequestParam("itemName"): annotation 뒤에 들어가는 optional query variable 를 표시해주니까
+@RequestParam("itemName"): annotation 뒤에 들어 가는 optional query variable 를 표시해 주니까
 postman 에서 테스트 해볼 때 에러가 안 났었음.
-

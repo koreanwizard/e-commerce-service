@@ -1,0 +1,102 @@
+@Service:
+* Each of user service (@Service) include 'execute()' method that returns the HTTP status.
+  Originally, these services are injected into the user controller by using the @Autowired annotation (field injection).
+  However, the dependency injection is more recommended because we can take the advantage of reusability of the code,
+  and flexibility on testing. We can use the constructor of user controller to do the dependency injection.
+
+
+* dependency inejction (의존성 주입) example:
+  car 클래스 안에 engine 클래스가 instance로 정의 되있다? 가솔린차 전기차 만들때 2개의 car 클래스 만들어야 한다.
+  하지만 car 클래스 생성자 파라미터에 engine 클래스를 받고 private final 로 engine 클래스를 정의하면 -> engine 클래스 생성후 인스턴스화 시켜서 car 클래스에서 사용한다
+  여기서 얻는 이점은 다양한 engine 하위 클래스만 만들어줘서 car 클래스에 사용하면 됌
+
+  예시) electricengine 클래스 (engine 하위 클래스로) 만들어서 그냥 car 클래스 파라미터에 사용하면 됌
+  테스트 하기도 편함 -> superengine 클래스, fakeengine 클래스 등등 다양한 engine 클래스 실험해보고 싶으면
+  그냥 만들어서 car 클래스 생성자 파라미터에 보내주면 됌
+  따라서 car 클래스에 대한 설정을 바꾸지 않아도 또한 새로 car 클래스를 만들어서 테스트하지 않고 engine 클래스만 바꿔가면서 사용할 수 있다~
+  reference: https://developer.android.com/training/dependency-injection#:~:text=Dependency%20injection%20(DI)%20is%20a,Ease%20of%20refactoring
+
+
+Optional:
+* The 'Optional' container object is useful to handle exceptions.
+  If our JpaRepository methods such as 'findAll' or 'get' returns a null, it can occur 'NoSuchElementException.'
+  This should be handled by following methods:'orElseThrow,' 'orElse(null),' etc
+  but if we use an 'Optional' object with a certain generic (such as 'Item'), we can easily handle it by
+  using 'isPresent' method. If the 'Optional' object contains an 'Item' object that includes an existing id,
+  it returns true (otherwise false). This is used in most of the 'ItemService' classes which actively use JpaRepository
+  methods.
+
+
+
+* CreateItemService:
+  - A service that is used to create an item. It implements a 'Command' interface because it's creating a new data.
+  - Use the 'ItemRepository' to access 'Item' objects.
+  - validate the new 'Item' object by using 'ItemValidator.execute' method.
+  - use the 'save' JpaRepository method to save the item into the item repository
+  - returns a ResponseEntity (status: 201, body: new ItemDTO object with passing new item object).
+
+
+
+* GetItemsService:
+ - A service that reads every item object from the database.
+ - Implements the 'Query' interface because it only reads existing data.
+ - explanation of the 'execute' method -> users.stream().map(UserDTO::new).toList()
+    - stream(): creates a 'Stream' object to filter or modify data.
+    - map(): apply every element in the stream with a certain function.
+    - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
+    - toList(): change stream to a list.
+ - returns a ResponseEntity (status: 200, body: a list of ItemDOT objects).
+
+
+
+* GetUserService:
+ - A service that reads a single item by using the id (an Integer type of primary key).
+ - Implements the 'Query' interface because it only reads a single existing data.
+ - Use an 'Optional' container object (type: 'Item') to store 'Item' object
+ - 'findById' is a JpaRepository method: literally gets the data by corresponding input id.
+ - if exists -> return a ResponseEntity (status: 200, body: a new ItemDTO).
+ - otherwise -> throws an ItemNotFoundException.
+
+
+
+* SearchItemByNameService:
+ - A service that search and returns a list of 'ItemDTO' by the item name.
+ - Since it only reads data, it implements the 'Query' interface.
+ - returns a ResponseEntity with a list of ItemDTO
+ -> Logic:
+    - ok(): creates a response with a status: 200, body: a list of 'Item')
+    - stream(): creates a 'Stream' object to filter or modify data.
+    - map(): apply every element in the stream with a certain function.
+    - ItemDTO::new : a lambda expression (function) that creates a new 'ItemDTO' object.
+    - toList(): change stream to a list
+    *** IMPORTANT: This method returns a list of 'ItemDTO' that contains 'Item' object, that CONTAINS
+                a certain item name (ignore uppercases and treat as lowercases).
+                ex: input 'itemName' = "wave", items that has these names will show up: chill wave t-shirt,
+                                                                                        flag-waver jacket
+
+
+* SearchItemByColorService:
+ - A service that search and returns a list of 'ItemDTO' by the color name.
+ - Contains a same logic as the 'SearchItemByNameService'.
+
+
+
+* UpdateUserService:
+ - A service that updates a certain item's attributes.
+ - Implements the 'Command' interface because it changes certain data of a certain item.
+ - Use the 'UpdateItemCommand' as a parameter from 'execute' method.
+
+
+* DeleteUserService:
+ - A service that deletes a certain item.
+ - The id (primary key) will be used as an input aspect to find the item.
+ - 'deleteById' is a JpaRepository method that deletes a certain data.
+ - returns a ResponseEntity (status: 401
+
+
+
+
+
+
+
+

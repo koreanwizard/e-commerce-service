@@ -2,63 +2,110 @@ package com.madebywizard.ecommerce.item.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.madebywizard.ecommerce.user.model.Cart;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+
+// An Item entity, the table name will be "item"
 @Entity
 @Table(name = "item")
 public class Item {
 
+
+    /*
+    a primary key and it's automatically generated
+    DATABASE: INT
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    // @NotNull(message = "item name is required") ensure that this field cannot be null
-    // VARCHAR
-    @Column(name = "item_name")
+
+    /*
+    name of the item. should be alphanumerical (handled from ItemValidator) (required)
+    DATABASE: VARCHAR(100) NOT NULL
+     */
+    @NotNull(message = "name is required")
+    @Column(name = "item_name", nullable = false)
     private String itemName;
 
-    // VARCHAR
+
+    /*
+    type of the item (enum) (required)
+    @Enumerated(EnumType.STRING) will let JPA store the enum object as a string
+    DATABASE: VARCHAR(100) NOT NULL
+     */
+    @NotNull(message = "type is required")
     @Enumerated(EnumType.STRING)
-    @Column(name = "item_type")
+    @Column(name = "item_type", nullable = false)
     private ItemType itemType;
 
-    // VARCHAR
+
+    /*
+    size of the item (enum) (required)
+    @Enumerated(EnumType.STRING) will let JPA store the enum object as a string
+    DATABASE: VARCHAR(100) NOT NULL
+     */
+    @NotNull(message = "size is required")
     @Enumerated(EnumType.STRING)
-    @Column(name = "item_size")
+    @Column(name = "item_size", nullable = false)
     private ItemSize itemSize;
 
-    // VARCHAR
-    @Column(name = "item_color")
+
+    /*
+    color of the item. should be alphabetical (handled from ItemValidator) (required)
+    DATABASE: VARCHAR(100) NOT NULL
+     */
+    @NotNull(message = "color is required")
+    @Column(name = "item_color", nullable = false)
     private String itemColor;
 
-    // DECIMAL(10, 2) -> $10.99
-    // precision: max-value that can be stored: 99999999.99, scale: number of digits after the decimal : ex-> 12.34
-    @Column(name = "item_price", precision = 10, scale = 2)
+
+    /*
+    price of the item. BigDecimal type (required)
+    maximum price will be: 99999999.99, 2 decimals are allowed after the decimal
+    price should be greater than 0 (handled from ItemValidator)
+    DATABASE: DECIMAL(10, 2) NOT NULL
+     */
+    @NotNull(message = "price is required")
+    @Column(name = "item_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal itemPrice;
 
-    @Column(name = "remaining_item")
-    private int remainingItem;
 
-    @Column(name="cart_id")
-    private Integer cartId;
+    /*
+    quantity of item (required)
+    quantity cannot be negative (handled from ItemValidator)
+    DATABASE: INT NOT NULL
+     */
+    @NotNull(message = "quantity is required")
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
 
-    // Many-to-many relationship with carts because every item can exist in every cart.
-    // While creating a JSON response, circular reference can occur and @JsonIgnore helps to avoid the circular reference.
+
+    /*
+    a list of carts.
+
+    Item and Cart have many-to-many relationship because a single item can be stored in multiple carts
+    and a single cart can store multiple items.
+
+    The @JsonIgnore annotation let the program avoid the circular reference
+    that can be occurred while creating JSON response.
+     */
     @ManyToMany(mappedBy="items")
     @JsonIgnore
     private List<Cart> carts;
 
 
-
-    public Item() {
-
-    }
+    // A default constructor that is required for using JPA/Hibernates (they use reflection to create instances)
+    public Item() {}
 
     public Item(Integer id,
                 String itemName,
@@ -66,8 +113,7 @@ public class Item {
                 ItemSize itemSize,
                 String itemColor,
                 BigDecimal itemPrice,
-                int remainingItem,
-                Integer cartId,
+                int quantity,
                 List<Cart> carts) {
         this.id = id;
         this.itemName = itemName;
@@ -75,8 +121,7 @@ public class Item {
         this.itemSize = itemSize;
         this.itemColor = itemColor;
         this.itemPrice = itemPrice;
-        this.remainingItem = remainingItem;
-        this.cartId = cartId;
+        this.quantity = quantity;
         this.carts = carts;
     }
 
@@ -90,7 +135,7 @@ public class Item {
     }
 
     public String getItemName() {
-        return itemName;
+        return this.itemName;
     }
 
     public void setItemName(String itemName) {
@@ -98,7 +143,7 @@ public class Item {
     }
 
     public ItemType getItemType() {
-        return itemType;
+        return this.itemType;
     }
 
     public void setItemType(ItemType itemType) {
@@ -106,7 +151,7 @@ public class Item {
     }
 
     public ItemSize getItemSize() {
-        return itemSize;
+        return this.itemSize;
     }
 
     public void setItemSize(ItemSize itemSize) {
@@ -114,7 +159,7 @@ public class Item {
     }
 
     public String getItemColor() {
-        return itemColor;
+        return this.itemColor;
     }
 
     public void setItemColor(String itemColor) {
@@ -122,27 +167,19 @@ public class Item {
     }
 
     public BigDecimal getItemPrice() {
-        return itemPrice;
+        return this.itemPrice;
     }
 
     public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public int getRemainingItem() {
-        return remainingItem;
+    public int getQuantity() {
+        return this.quantity;
     }
 
-    public void setRemainingItem(int remainingItem) {
-        this.remainingItem = remainingItem;
-    }
-
-    public Integer getCartId() {
-        return this.cartId;
-    }
-
-    public void setCartId(Integer cartId) {
-        this.cartId = cartId;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public List<Cart> getCarts() {
@@ -152,6 +189,7 @@ public class Item {
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -168,8 +206,7 @@ public class Item {
                 Objects.equals(this.itemSize, item.itemSize) &&
                 Objects.equals(this.itemColor, item.itemColor) &&
                 Objects.equals(this.itemPrice, item.itemPrice) &&
-                Objects.equals(this.remainingItem, item.remainingItem) &&
-                Objects.equals(this.cartId, item.cartId) &&
+                Objects.equals(this.quantity, item.quantity) &&
                 Objects.equals(this.carts, item.carts);
     }
 
@@ -182,8 +219,7 @@ public class Item {
                 this.itemSize,
                 this.itemColor,
                 this.itemPrice,
-                this.remainingItem,
-                this.cartId,
+                this.quantity,
                 this.carts
         );
     }
@@ -193,10 +229,9 @@ public class Item {
         return "Item{" + "id=" + this.id +
                 ", itemName='" + this.itemName + "'" +
                 ", itemType='" + this.itemType + "'" +
-                ", itemSize=" + this.itemSize +
+                ", itemSize='" + this.itemSize + "'" +
                 ", itemColor='" + this.itemColor + "'" +
-                ", itemPrice='" + this.itemPrice + "'" +
-                ", remainingItem='" + this.remainingItem + "'" +
-                "}";
+                ", itemPrice=" + this.itemPrice +
+                ", quantity=" + this.quantity + "}";
     }
 }

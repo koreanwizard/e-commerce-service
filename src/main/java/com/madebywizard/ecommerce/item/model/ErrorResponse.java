@@ -1,14 +1,5 @@
 package com.madebywizard.ecommerce.item.model;
 
-public class ErrorResponse {
-
-    private String message;
-
-    public ErrorResponse(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
+// a record class for error response (ErrorResponse is immutable and only requires a getter method to get message)
+public record ErrorResponse (String message){
 }

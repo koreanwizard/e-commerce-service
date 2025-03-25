@@ -1,0 +1,50 @@
+* Item:
+An 'Item' is a class that will be linked to the database: this is an Entity (jpa).
+
+ - id (required element):
+   * It's generated automatically and will be used as a primary key from the database
+
+ - itemName (required element):
+   * It's the name of the item, and it should be alphanumerical.
+   * The validating process will be handled from ItemValidator class.
+
+ - itemType (required element):
+   * It's the type of the item, and it's an enum type class.
+   * It has four different categories.
+
+ - itemSize (required element):
+   * It's the size of the item, and it's an enum type class.
+   * It has seven different categories.
+
+ - itemColor (required element):
+   * It's the color of the item, and it should be alphabetical.
+   * The validating process will be handled from ItemValidator class.
+
+ - price (required element):
+   * It's the price of the item.
+   * The price should be greater than 0 (this will be handled from ItemValidator class).
+
+ - quantity (required element):
+   * The number of remaining items.
+   * It's an integer type attribute, and it cannot be negative (this will be handled from ItemValidator class).
+
+* @NotNull and @Column(nullable = false)
+ - These annotations are provided by Jakarta Validation API, and they can be used for validating columns.
+   Required elements include these annotations. @Valid annotation can be used in controller method to check if it's null.
+   Detailed validations are implemented in ItemValidator class (validating the data existence is managed by those annotations).
+
+
+* ItemDTO:
+ - A DTO (data transfer object) carries data between system processes.
+   It can be used between the API and server with containing essential data.
+   An 'ItemDTO' will carry item's id (primary key), name, type, size, and price.
+
+
+* ErrorResponse:
+ - A record class to customize error responses and use while handling exceptions. It contains a 'message' (String)
+   and can get with using .message()
+
+
+* UpdateItemCommand:
+ - A record class that is used while updating an item's attributes. It contains an 'id' (Integer) and 'item' (Item)
+   and can get them with using corresponding calls => .id(), .item()

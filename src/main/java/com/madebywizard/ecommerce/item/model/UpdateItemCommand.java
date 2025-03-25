@@ -1,20 +1,5 @@
 package com.madebywizard.ecommerce.item.model;
 
-public class UpdateItemCommand {
-
-    private Integer id;
-    private Item item;
-
-    public UpdateItemCommand(Integer id, Item item) {
-        this.id = id;
-        this.item = item;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public Item getItem() {
-        return this.item;
-    }
+// a record class for updating item (UpdateItemCommand is immutable and only requires a getter method to get message)
+public record UpdateItemCommand(Integer id, Item item) {
 }

@@ -1,0 +1,7 @@
+* ItemValidator:
+ - This object includes a 'validate' method with 'Item' parameter.
+ - It checks every specific attribute from a new 'Item' object.
+ - It will be executed when we try to create or update an 'Item' object (while sending 'POST' or 'PUT' requests).
+ - While creating (or updating) a data, a validation process is essential.
+ - If one of the condition is true from the 'execute' method, it will throw an ItemNotValidException
+   with a specific 'ErrorMessages' enum.
