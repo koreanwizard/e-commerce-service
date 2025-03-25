@@ -31,7 +31,7 @@ public class Item {
 
     /*
     name of the item. should be alphanumerical (handled from ItemValidator) (required)
-    DATABASE: VARCHAR(100) NOT NULL
+    DATABASE: VARCHAR(255) NOT NULL
      */
     @NotNull(message = "name is required")
     @Column(name = "item_name", nullable = false)
@@ -41,7 +41,7 @@ public class Item {
     /*
     type of the item (enum) (required)
     @Enumerated(EnumType.STRING) will let JPA store the enum object as a string
-    DATABASE: VARCHAR(100) NOT NULL
+    DATABASE: VARCHAR(255) NOT NULL
      */
     @NotNull(message = "type is required")
     @Enumerated(EnumType.STRING)
@@ -52,7 +52,7 @@ public class Item {
     /*
     size of the item (enum) (required)
     @Enumerated(EnumType.STRING) will let JPA store the enum object as a string
-    DATABASE: VARCHAR(100) NOT NULL
+    DATABASE: VARCHAR(255) NOT NULL
      */
     @NotNull(message = "size is required")
     @Enumerated(EnumType.STRING)
@@ -62,7 +62,7 @@ public class Item {
 
     /*
     color of the item. should be alphabetical (handled from ItemValidator) (required)
-    DATABASE: VARCHAR(100) NOT NULL
+    DATABASE: VARCHAR(255) NOT NULL
      */
     @NotNull(message = "color is required")
     @Column(name = "item_color", nullable = false)
