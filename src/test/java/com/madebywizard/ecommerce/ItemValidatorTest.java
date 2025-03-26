@@ -2,73 +2,141 @@ package com.madebywizard.ecommerce;
 
 import com.madebywizard.ecommerce.exceptions.ItemNotValidException;
 import com.madebywizard.ecommerce.item.model.Item;
+import com.madebywizard.ecommerce.item.model.ItemSize;
+import com.madebywizard.ecommerce.item.model.ItemType;
 import com.madebywizard.ecommerce.item.validators.ItemValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.madebywizard.ecommerce.item.validators.ItemValidator.execute;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.math.BigDecimal;
+
+import static com.madebywizard.ecommerce.item.validators.ItemValidator.validate;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemValidatorTest {
 
-    private Item user;
+    private Item item;
 
-//    @BeforeEach
-//    public void setup() {
-//        user = new Item();
-//    }
-//
-//    @Test
-//    public void test_valid_first_and_last_name() {
-//
-//        // test when user did not add his/her first name
-//        assertThrows(ItemNotValidException.class, () -> ItemValidator.execute(user));
-//
-//        //test when user's first name is not alphabetic
-//        user.setFirstName("1234");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setFirstName("!@#$");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setFirstName("hello1234");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//
-//
-//        // test when user did not add his/her last name
-//        assertThrows(ItemNotValidException.class, () -> ItemValidator.execute(user));
-//
-//        //test when user's last name is not alphabetic
-//        user.setFirstName("5678");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setFirstName(")(+_=");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setFirstName("include999");
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//
-//
-//    }
-//
-//
-//    @Test
-//    public void test_valid_sex() {
-//
-//        //test when user did not add his/her sex
-//        assertThrows(ItemNotValidException.class, () -> ItemValidator.execute(user));
-//
-//        // test when user type in a different character except M or F
-//        user.setSex('A');
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setSex('@');
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//        user.setSex('1');
-//        assertThrows(ItemNotValidException.class, () -> execute(user));
-//
-//        // might have to think about the type of the sex attribute
-//        // if user type in a string not a char this should also throw an exception
-//        // when i input a string that has length greater than 1
-//        // it gave me a 404 request (JSON parse error: Cannot deserialize value of type `char` from String \"hello\": Expected either Integer value code or 1-character String)
-//        // maybe i can change the type to string and check the length of it
-//        // if length is greater not equal to 1 -> throw an exception
-//    }
+    @BeforeEach
+    public void setup() {
+        item = new Item();
+        item.setId(1);
+        item.setItemName("valid item name 1");
+        item.setItemType(ItemType.HOODIE);
+        item.setItemSize(ItemSize.L);
+        item.setItemColor("valid item color");
+        item.setItemPrice(BigDecimal.valueOf(12.99));
+        item.setQuantity(10);
+    }
+
+    @Test
+    public void test_valid_item_name() {
+        // invalid item names
+        String invalid1 = "1234";
+        String invalid2 = "!@#$%^&";
+        String invalid3 = "It@m 1";
+        String invalid4 = " Item 1";
+        String invalid5 = "Item 1 ";
+        String invalid6 = " Item 1 ";
+        String valid = "Item 1";
+
+        // tests for isStrictAlphaNumeric method
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid1));
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid2));
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid3));
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid4));
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid5));
+        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid6));
+        assertTrue(ItemValidator.isStrictAlphaNumeric(valid));
+
+
+        // tests for validate method
+        // test when item name is null
+        item.setItemName(null);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        // itemName cannot be numeric
+        item.setItemName(invalid1);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+
+        // itemName cannot contain special characters
+        item.setItemName(invalid2);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemName(invalid3);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+
+        // itemName cannot contain space on first or (and) last index
+        item.setItemName(invalid4);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemName(invalid5);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemName(invalid6);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        // valid itemName does not throw any exception
+        item.setItemName(valid);
+        assertDoesNotThrow(() -> validate(item));
+    }
+
+
+    @Test
+    public void test_valid_item_color() {
+
+        String invalid1 = "1234";
+        String invalid2 = "!@#$%^&";
+        String invalid3 = "light blue 1";
+        String invalid4 = " lightblue";
+        String invalid5 = "lightblue ";
+        String invalid6 = " light blue ";
+        String valid = "light blue";
+
+        // tests for isStrictAlphabetic method
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid1));
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid2));
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid3));
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid4));
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid5));
+        assertFalse(ItemValidator.isStrictAlphabetic(invalid6));
+
+        assertTrue(ItemValidator.isStrictAlphabetic(valid));
+
+        // tests for validate method
+        // test when itemColor is null
+        item.setItemColor(null);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        // itemColor cannot be numeric
+        item.setItemColor(invalid1);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+
+        // itemColor cannot contain special characters
+        item.setItemColor(invalid2);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        // itemColor cannot be alphanumerical
+        item.setItemColor(invalid3);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        // itemColor cannot contain space on first or (and) last index
+        item.setItemColor(invalid4);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemColor(invalid5);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemColor(invalid6);
+        assertThrows(ItemNotValidException.class, () -> validate(item));
+
+        item.setItemColor(valid);
+        assertDoesNotThrow(() -> validate(item));
+    }
 //
 //
 //    // testing valid birthdate will be updated in the future
