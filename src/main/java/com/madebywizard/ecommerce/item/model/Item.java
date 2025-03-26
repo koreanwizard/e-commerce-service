@@ -98,6 +98,8 @@ public class Item {
 
     The @JsonIgnore annotation let the program avoid the circular reference
     that can be occurred while creating JSON response.
+
+    WILL ADD THE 'carts' ATTRIBUTE IN THE 'toString()' METHOD IN THE FUTURE TO DEBUG 'Item' OBJECT
      */
     @ManyToMany(mappedBy="items")
     @JsonIgnore
