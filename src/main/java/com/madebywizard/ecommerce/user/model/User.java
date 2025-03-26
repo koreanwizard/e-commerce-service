@@ -1,7 +1,6 @@
 package com.madebywizard.ecommerce.user.model;
 
 
-import com.madebywizard.ecommerce.item.model.Item;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -28,7 +27,7 @@ public class User {
 
     /*
     a user's id. should be alphanumerical (will be handled form UserValidator) (required)
-    DATABASE: VARCHAR(255) NOT NULL
+    DATABASE: VARCHAR(255) NOT NULL UNIQUE
      */
     @NotNull(message = "user id is required")
     @Column(name = "user_Id", nullable = false)
