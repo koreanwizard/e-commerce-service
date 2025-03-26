@@ -1,22 +1,20 @@
 package com.madebywizard.ecommerce.user.model;
 
-import com.madebywizard.ecommerce.item.model.ItemDTO;
-
-import java.util.List;
 import java.util.Objects;
 
+// A DTO (data transfer object) for User
 public class UserDTO {
 
     private Integer id;
+    private String userId;
     private String lastName;
-    private Cart cart;
-    private List<Address> addresses;
+    private String email;
 
     public UserDTO(User user) {
         this.id = user.getId();
+        this.userId = user.getUserId();
         this.lastName = user.getLastName();
-        this.cart = user.getCart();
-        this.addresses = user.getAddresses();
+        this.email = user.getEmail();
     }
 
     public Integer getId() {
@@ -27,6 +25,14 @@ public class UserDTO {
         this.id = id;
     }
 
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getLastName() {
         return this.lastName;
     }
@@ -35,48 +41,42 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public Cart getCart() {
-        return this.cart;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<Address> getAddresses() {
-        return this.addresses;
-    }
+// these can be omitted
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (!(o instanceof UserDTO)) {
+//            return false;
+//        }
+//        UserDTO userDTO = (UserDTO) o;
+//        return Objects.equals(this.id, userDTO.id) &&
+//                Objects.equals(this.userId, userDTO.userId) &&
+//                Objects.equals(this.lastName, userDTO.lastName) &&
+//                Objects.equals(this.email, userDTO.email);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(this.id, this.userId, this.lastName, this.email);
+//    }
 
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof UserDTO)) {
-            return false;
-        }
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(this.id, userDTO.id) &&
-                Objects.equals(this.lastName, userDTO.lastName) &&
-                Objects.equals(this.cart, userDTO.cart) &&
-                Objects.equals(this.addresses, userDTO.addresses);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id, this.lastName, this.cart, this.addresses);
-    }
-
+    // can be used for debugging purposes
     @Override
     public String toString() {
         return "UserDTO{" + "id=" + this.id +
+                ", userId='" + this.userId + "'" +
                 ", lastName='" + this.lastName + "'" +
-                ", cart=" + this.cart +
-                ", addresses=" + this.addresses +
+                ", email='" + this.email + "'" +
                 "}";
     }
 }
