@@ -1,35 +1,25 @@
 package com.madebywizard.ecommerce;
 
 import com.madebywizard.ecommerce.item.ItemRepository;
-import com.madebywizard.ecommerce.item.model.Item;
-import com.madebywizard.ecommerce.item.model.ItemDTO;
-import com.madebywizard.ecommerce.item.services.SearchItemService;
+import com.madebywizard.ecommerce.item.services.SearchItemByNameService;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import org.springframework.http.ResponseEntity;
-
-import java.time.LocalDate;
-import java.util.List;
 
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchItemServiceTest {
+public class SearchItemByNameServiceTest {
 
     @Mock
     private ItemRepository itemRepository;
 
     @InjectMocks
-    private SearchItemService searchItemService;
+    private SearchItemByNameService searchItemByNameService;
 
 //    @Test
 //    public void given_user_last_name_exists_when_search_user_service_return_list_of_user_dto() {

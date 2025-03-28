@@ -31,6 +31,47 @@ public class ItemValidatorTest {
     }
 
     @Test
+    public void test_method() {
+
+
+//        String invalid1 = "";
+//        String invalid2 = " ";
+//        String invalid3 = "                         ";
+//        String invalid4 = "              ?              ";
+//        String invalid5 = "1234";
+//        String invalid6 = " name ";
+//        String invalid7 = "name ";
+//        String invalid8 = " name";
+//        String invalid9 = "name 123";
+//        String invalid10 = "!@#$%^&*()-_=+[]{}|\\/?<>,.\"'`~;:";
+//        String valid = "sky blue";
+//
+//
+//        assertTrue(ItemValidator.invalidItemColor(null));
+//        assertTrue(ItemValidator.invalidItemColor(invalid1));
+//        assertTrue(ItemValidator.invalidItemColor(invalid2));
+//        assertTrue(ItemValidator.invalidItemColor(invalid3));
+//        assertTrue(ItemValidator.invalidItemColor(invalid4));
+//        assertTrue(ItemValidator.invalidItemColor(invalid5));
+//        assertTrue(ItemValidator.invalidItemColor(invalid6));
+//        assertTrue(ItemValidator.invalidItemColor(invalid7));
+//        assertTrue(ItemValidator.invalidItemColor(invalid8));
+//        assertTrue(ItemValidator.invalidItemColor(invalid9));
+//        assertTrue(ItemValidator.invalidItemColor(invalid10));
+//        assertFalse(ItemValidator.invalidItemColor(valid));
+
+
+//        BigDecimal test = BigDecimal.valueOf(0);
+//
+//
+//        assertTrue(ItemValidator.invalidItemPrice(BigDecimal.valueOf(0.0)));
+//        assertTrue(ItemValidator.invalidItemPrice(BigDecimal.valueOf(-0.1)));
+//        assertFalse(ItemValidator.invalidItemPrice(BigDecimal.valueOf(0.000000000000000000000001)));
+
+
+    }
+
+    @Test
     public void test_valid_item_name() {
         // invalid item names
         String invalid1 = "1234";
@@ -42,13 +83,13 @@ public class ItemValidatorTest {
         String valid = "Item 1";
 
         // tests for isStrictAlphaNumeric method
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid1));
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid2));
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid3));
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid4));
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid5));
-        assertFalse(ItemValidator.isStrictAlphaNumeric(invalid6));
-        assertTrue(ItemValidator.isStrictAlphaNumeric(valid));
+        assertFalse(ItemValidator.invalidItemName(invalid1));
+        assertFalse(ItemValidator.invalidItemName(invalid2));
+        assertFalse(ItemValidator.invalidItemName(invalid3));
+        assertFalse(ItemValidator.invalidItemName(invalid4));
+        assertFalse(ItemValidator.invalidItemName(invalid5));
+        assertFalse(ItemValidator.invalidItemName(invalid6));
+        assertTrue(ItemValidator.invalidItemName(valid));
 
 
         // tests for validate method
@@ -97,14 +138,14 @@ public class ItemValidatorTest {
         String valid = "light blue";
 
         // tests for isStrictAlphabetic method
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid1));
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid2));
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid3));
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid4));
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid5));
-        assertFalse(ItemValidator.isStrictAlphabetic(invalid6));
+        assertFalse(ItemValidator.invalidItemColor(invalid1));
+        assertFalse(ItemValidator.invalidItemColor(invalid2));
+        assertFalse(ItemValidator.invalidItemColor(invalid3));
+        assertFalse(ItemValidator.invalidItemColor(invalid4));
+        assertFalse(ItemValidator.invalidItemColor(invalid5));
+        assertFalse(ItemValidator.invalidItemColor(invalid6));
 
-        assertTrue(ItemValidator.isStrictAlphabetic(valid));
+        assertTrue(ItemValidator.invalidItemColor(valid));
 
         // tests for validate method
         // test when itemColor is null
