@@ -1,6 +1,7 @@
 package com.madebywizard.ecommerce.item.services;
 
 import com.madebywizard.ecommerce.Command;
+import com.madebywizard.ecommerce.exceptions.ErrorMessages;
 import com.madebywizard.ecommerce.exceptions.ItemNotFoundException;
 import com.madebywizard.ecommerce.item.ItemRepository;
 import com.madebywizard.ecommerce.item.model.UpdateItemCommand;
@@ -39,6 +40,6 @@ public class UpdateItemService implements Command<UpdateItemCommand, ItemDTO> { 
             return ResponseEntity.ok(new ItemDTO(item));
         }
 
-        throw new ItemNotFoundException();
+        throw new ItemNotFoundException(ErrorMessages.ITEM_NOT_FOUND.getMessage());
     }
 }

@@ -1,6 +1,7 @@
 package com.madebywizard.ecommerce.item.services;
 
 import com.madebywizard.ecommerce.Command;
+import com.madebywizard.ecommerce.exceptions.ErrorMessages;
 import com.madebywizard.ecommerce.exceptions.ItemNotFoundException;
 import com.madebywizard.ecommerce.item.ItemRepository;
 import com.madebywizard.ecommerce.item.model.Item;
@@ -29,6 +30,6 @@ public class DeleteItemService implements Command<Integer, Void> { // Input: ite
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
-        throw new ItemNotFoundException();
+        throw new ItemNotFoundException(ErrorMessages.ITEM_NOT_FOUND.getMessage());
     }
 }

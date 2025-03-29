@@ -1,6 +1,7 @@
 package com.madebywizard.ecommerce.item.services;
 
 import com.madebywizard.ecommerce.Query;
+import com.madebywizard.ecommerce.exceptions.ErrorMessages;
 import com.madebywizard.ecommerce.exceptions.ItemNotFoundException;
 import com.madebywizard.ecommerce.item.ItemRepository;
 import com.madebywizard.ecommerce.item.model.Item;
@@ -27,6 +28,6 @@ public class GetItemService implements Query<Integer, ItemDTO> { // Input: item 
             return ResponseEntity.ok(new ItemDTO(itemOptional.get()));
         }
 
-        throw new ItemNotFoundException();
+        throw new ItemNotFoundException(ErrorMessages.ITEM_NOT_FOUND.getMessage());
     }
 }
