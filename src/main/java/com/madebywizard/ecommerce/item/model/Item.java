@@ -1,15 +1,10 @@
 package com.madebywizard.ecommerce.item.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import com.madebywizard.ecommerce.user.model.Cart;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 

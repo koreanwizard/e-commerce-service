@@ -1,8 +1,8 @@
 @Service:
-* Each of user service (@Service) include 'execute()' method that returns the HTTP status.
-  Originally, these services are injected into the user controller by using the @Autowired annotation (field injection).
+* Each of customer service (@Service) include 'execute()' method that returns the HTTP status.
+  Originally, these services are injected into the customer controller by using the @Autowired annotation (field injection).
   However, the dependency injection is more recommended because we can take the advantage of reusability of the code,
-  and flexibility on testing. We can use the constructor of user controller to do the dependency injection.
+  and flexibility on testing. We can use the constructor of customer controller to do the dependency injection.
 
 
 * dependency inejction (의존성 주입) example:
@@ -38,7 +38,7 @@ Optional:
 * GetItemsService:
  - A service that reads every item object from the database.
  - Implements the 'Query' interface because it only reads existing data.
- - explanation of the 'execute' method -> users.stream().map(UserDTO::new).toList()
+ - explanation of the 'execute' method -> customers.stream().map(UserDTO::new).toList()
     - stream(): creates a 'Stream' object to filter or modify data.
     - map(): apply every element in the stream with a certain function.
     - UserDTO::new : a lambda expression (function) that creates a new 'UserDTO' object.
