@@ -16,8 +16,8 @@ public class CustomerController {
 
 
     // will return a string if successfully created
-    @PostMapping("/user")
-    public ResponseEntity<String> createSingleUser(@RequestBody Customer customer) {
+    @PostMapping("/customer")
+    public ResponseEntity<String> createOneCustomer(@RequestBody Customer customer) {
         return createCustomerService.execute(customer);
     }
 
