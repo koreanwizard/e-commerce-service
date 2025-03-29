@@ -1,5 +1,5 @@
 Address:
-an object that contains every information of an address (address will be associated to a single user)
+an object that contains every information of an address (address will be associated to a single customer)
 will not allow sharing addresses temporarily
 
 * street_address: name of the street address
@@ -8,7 +8,7 @@ will not allow sharing addresses temporarily
 * state: name of the state (province or district -> this is an optional attribute: nullable)
 * postal_code: a postal code (it's a String because some country's postal code includes a hyphen or starts from 0)
 * country: the country name (will be an upper-case string)
-* userId: a user's id (numerical id) (this is required for a 'OneToMany' relational mapping process)
+* customerId: a customer's id (numerical id) (this is required for a 'OneToMany' relational mapping process)
 
 
 Cart:
@@ -19,18 +19,18 @@ an object that contains the number of item.
 *** In the future, the 'Cart' object will contain a list of 'Item' objects.
 
 
-User:
-an object that contains user's information.
+Customer:
+an object that contains customer's information.
 
-* firstName: user's first name
-* lastName: user's last name
-* gender: user's gender
-* email: user's email (email validator will be added in the future)
-* cart: user's cart
-        user and cart have 'OneToOne' relationship because both of them can be associated with one cart (or user)
-* addresses: every address that user registered (a list of 'Address' object)
-             user and address have 'OneToMany' relationship because user can store multiple addresses
-             and each address are associated to a one user.
+* firstName: customer's first name
+* lastName: customer's last name
+* gender: customer's gender
+* email: customer's email (email validator will be added in the future)
+* cart: customer's cart
+        customer and cart have 'OneToOne' relationship because both of them can be associated with one cart (or customer)
+* addresses: every address that customer registered (a list of 'Address' object)
+             customer and address have 'OneToMany' relationship because customer can store multiple addresses
+             and each address are associated to a one customer.
 
 -> CascadeType.ALL: this applies all operations (insert, update, delete, refresh, detach) to child entities.
                     when parent entities are updated, the child entities will also follow the operation
@@ -38,10 +38,10 @@ an object that contains user's information.
 
 
 
-UserDTO:
-a data transfer object for 'User' object. this will only contain certain information of user
+CustomerDTO:
+a data transfer object for 'Customer' object. this will only contain certain information of customer
 
-* id: an integer id of a certain user
-* lastName: user's last name
-* cart: user's cart
-* addresses: user's addresses that are registered
+* id: an integer id of a certain customer
+* lastName: customer's last name
+* cart: customer's cart
+* addresses: customer's addresses that are registered
