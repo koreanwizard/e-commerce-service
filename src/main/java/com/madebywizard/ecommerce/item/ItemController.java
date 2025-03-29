@@ -1,14 +1,11 @@
 package com.madebywizard.ecommerce.item;
 
-
  import com.madebywizard.ecommerce.item.model.UpdateItemCommand;
  import com.madebywizard.ecommerce.item.model.Item;
  import com.madebywizard.ecommerce.item.model.ItemDTO;
  import com.madebywizard.ecommerce.item.services.*;
 
- import org.springframework.http.MediaType;
  import org.springframework.http.ResponseEntity;
-
  import org.springframework.web.bind.annotation.DeleteMapping;
  import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
@@ -62,18 +59,18 @@ public class ItemController {
     // -----------------------------------------------------------------------------------------------------------
 
     @PostMapping("/item")
-    public ResponseEntity<ItemDTO> createSingeItem(@RequestBody Item item) {
+    public ResponseEntity<ItemDTO> createOneItem(@RequestBody Item item) {
         return createItemService.execute(item);
     }
 
     @PutMapping("/item/{id}")
-    public ResponseEntity<ItemDTO> updateSingleItem(@PathVariable("id") Integer id, @RequestBody Item item) {
+    public ResponseEntity<ItemDTO> updateOneItem(@PathVariable("id") Integer id, @RequestBody Item item) {
         // passing both id and 'Item' object
         return updateItemService.execute(new UpdateItemCommand(id, item));
     }
 
     @DeleteMapping("/item/{id}")
-    public ResponseEntity<Void> deleteSingleItem(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deleteOneItem(@PathVariable("id") Integer id) {
         return deleteItemService.execute(id);
     }
     // -----------------------------------------------------------------------------------------------------------
@@ -91,24 +88,26 @@ public class ItemController {
     // -----------------------------------------------------------------------------------------------------------
 
 
-    // adding headers (type of media that item receive)
-    @GetMapping(value="/items", produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    // add this if headers needed: produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    @GetMapping("/items")
     public ResponseEntity<List<ItemDTO>> getEveryItem() {
         return getItemsService.execute(null);
     }
 
-    @GetMapping("/item/{id}")
-    public ResponseEntity<ItemDTO> getSingleItem(@PathVariable("id") Integer id) {
+    @GetMapping("/items/{id}")
+    public ResponseEntity<ItemDTO> getOneItem(@PathVariable("id") Integer id) {
         return getItemService.execute(id);
     }
 
-    @GetMapping("/item/search/name")
-    public ResponseEntity<List<ItemDTO>> searchItemByItemName(@RequestParam("itemName") String itemName) {
+
+    // these GET HTTP requests can be combined by adding filters into the request parameter
+    // 필터 넣고 합처야 하는게 맞는데 일단은 그냥 가자
+    @GetMapping("/items/search/name")
+    public ResponseEntity<List<ItemDTO>> searchItemByName(@RequestParam("itemName") String itemName) {
         return searchItemByNameService.execute(itemName);
     }
-
-    @GetMapping("/item/search/color")
-    public ResponseEntity<List<ItemDTO>> searchItemByItemColor(@RequestParam("itemColor") String itemColor) {
+    @GetMapping("/items/search/color")
+    public ResponseEntity<List<ItemDTO>> searchItemByColor(@RequestParam("itemColor") String itemColor) {
         return searchItemByColorService.execute(itemColor);
     }
 
