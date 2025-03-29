@@ -19,14 +19,14 @@
 * ItemController (HTTP Methods -> CRUD operations):
 
 
- - createSingeItem (@PostMapping):
+ - createOneItem (@PostMapping):
   - RequestBody is an 'Item' object and returns the 'ItemDTO' by calling 'execute' method from 'CreateItemService'
 
 
  - getEveryItem (@GetMapping):
   - returns every item that are existing inside the database: will be return as a list of ItemDTO.
 
- - getSingleItem (@GetMapping):
+ - getOneItem (@GetMapping):
   - returns a single item that contains passed id (@PathVariable is required to pass in the item id).
 
  - searchItemByItemName (@GetMapping):
@@ -39,12 +39,12 @@
  - searchItemByItemColor (@GetMapping):
   - Same logic as 'searchItemByItemName' Http method.
 
- - updateSingleItem (@PutMapping):
+ - updateOneItem (@PutMapping):
   - updates the item that includes a certain id. the item that want to be updated will be the body of request
   - the 'UpdateItemCommand' class has been created to store item's id and the actual item.
   - the 'execute' method from 'UpdateItemService' uses a 'save' Jpa method to update attributes.
 
- - deleteSingleItem (@DeleteMapping):
+ - deleteOneItem (@DeleteMapping):
   - delete an item that includes a certain id.
   - calls the 'execute' method to find the item by id and if exists -> use 'deleteById' Jpa method
     to delete the following item.
