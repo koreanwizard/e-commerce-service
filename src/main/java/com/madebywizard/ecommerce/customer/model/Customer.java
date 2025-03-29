@@ -29,7 +29,7 @@ public class Customer {
     DATABASE: VARCHAR(255) NOT NULL UNIQUE
      */
     @NotNull(message = "customer id is required")
-    @Column(name = "customer_Id", nullable = false, unique = true)
+    @Column(name = "customer_id", nullable = false, unique = true)
     private String customerId;
 
 
