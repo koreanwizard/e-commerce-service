@@ -1,0 +1,58 @@
+* Authentication:
+  Users need to prove themselves who they are to log in and use the service.
+  It requires username (userId) and customer password (userPassword).
+  A 'JWT Web Token' is another way to authenticate.
+
+
+
+* Authenticated & Unauthenticated endpoints:
+  Authenticated endpoints requires a verified credentials to access (customers need to authenticate themselves to buy items)
+  Unauthenticated endpoints doesn't require any credentials (customers can access and browse the website without log in)
+
+  - Security Filter Chain:
+    Normally, an HTTP request directly goes to unauthenticated endpoints. However, if customer want to access the
+    authenticated endpoints, the HTTP request should clearly pass in security filters.
+
+
+
+* Authorization:
+  Users are allowed to browse and purchase items. However, they cannot create, update, or delete an item's information.
+  However, the admin can because he/she manage the whole service (authorized personnel).
+  *** Both customers and the admin are authenticated and logged in ***
+
+  - Authority: a valid action -> ex: a customer can do a basic access but the admin can do a special access
+  - Role: an admin roles as a 'manager' but the customer roles as 'customer'
+
+  - Method Level Security: same as Security Filter Chain but prevents individual methods
+                           preferred when managing few restricted endpoints
+
+
+* Hard code the customer (for debugging purpose):
+  UserDetailsService: create a customer authentication (provided by spring security)
+  PasswordEncoder: encode the raw text
+  InMemoryUserDetailsManager: register the new customer into this manager
+
+
+* Spring Security Flow:
+
+  1. An HTTP request enters and goes to the security filter chain.
+  2. If basic authorization exists in the header, the basic authorization filter will be triggered.
+  3. The basic authorization filter calls the authentication manager.
+  4. The authentication manager then calls the UserDetailsService.
+  5. The UserDetailsService will call the loadUserByUserName and validates the credentials
+  6. If it's valid, the HTTP request will be added to the security content (otherwise, it will deny the request).
+
+
+* csrf(AbstractHttpConfigurer::disable):
+  This only works on GET requests so if the service also wants to work on POST / PUT /DELETE
+  requests, it should disable the CSRF (Cross Site Request Forgery).
+  Since GET requests only reads the data and doesn't modify. However, other requests
+  are able to mutate the data, disabling the CSRF is needed.
+
+
+* CSRF:
+  The attacker can modify customer's information such as email address, password, or intentionally make a funds transfer.
+  If the victim customer has a privileged role (such as an admin), the attacker can take full control of the
+  whole application's data and functionality.
+
+  - 말 그대로 '사이트 간 요청 위조': 공격자는 사용자의 지정해 놓은 정보를 수정하고 사용자의 의지와 무관한 행위를 웹사이트에 요청하게 한다.
