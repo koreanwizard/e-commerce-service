@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GetEveryCustomerService implements Query<Void, List<CustomerDTO>> {
+public class GetCustomersService implements Query<Void, List<CustomerDTO>> {
 
     private final CustomerRepository customerRepository;
 
-    public GetEveryCustomerService(CustomerRepository customerRepository) {
+    public GetCustomersService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
