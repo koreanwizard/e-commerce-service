@@ -30,11 +30,11 @@ public class Item {
 
 
     /*
-    name of the item. should be alphanumerical (handled from ItemValidator) (required)
-    DATABASE: VARCHAR(255) NOT NULL
+    name of the item. should be unique (required)
+    DATABASE: VARCHAR(255) NOT NULL UNIQUE
      */
     @NotNull(message = "name is required")
-    @Column(name = "item_name", nullable = false)
+    @Column(name = "item_name", nullable = false, unique = true)
     private String itemName;
 
 
@@ -101,9 +101,9 @@ public class Item {
 
     WILL ADD THE 'carts' ATTRIBUTE IN THE 'toString()' METHOD IN THE FUTURE TO DEBUG 'Item' OBJECT
      */
-    @ManyToMany(mappedBy="items")
-    @JsonIgnore
-    private List<Cart> carts;
+//    @ManyToMany(mappedBy="items")
+//    @JsonIgnore
+//    private List<Cart> carts;
 
 
     // A default constructor that is required for using JPA/Hibernates (they use reflection to create instances)
@@ -115,8 +115,9 @@ public class Item {
                 ItemSize itemSize,
                 String itemColor,
                 BigDecimal itemPrice,
-                int quantity,
-                List<Cart> carts) {
+                int quantity
+                //List<Cart> carts
+    ) {
         this.id = id;
         this.itemName = itemName;
         this.itemType = itemType;
@@ -124,7 +125,7 @@ public class Item {
         this.itemColor = itemColor;
         this.itemPrice = itemPrice;
         this.quantity = quantity;
-        this.carts = carts;
+//        this.carts = carts;
     }
 
 
@@ -184,13 +185,13 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public List<Cart> getCarts() {
-        return this.carts;
-    }
-
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
-    }
+//    public List<Cart> getCarts() {
+//        return this.carts;
+//    }
+//
+//    public void setCarts(List<Cart> carts) {
+//        this.carts = carts;
+//    }
 
 
     @Override
@@ -208,8 +209,7 @@ public class Item {
                 Objects.equals(this.itemSize, item.itemSize) &&
                 Objects.equals(this.itemColor, item.itemColor) &&
                 Objects.equals(this.itemPrice, item.itemPrice) &&
-                Objects.equals(this.quantity, item.quantity) &&
-                Objects.equals(this.carts, item.carts);
+                Objects.equals(this.quantity, item.quantity); //&& Objects.equals(this.carts, item.carts);
     }
 
     @Override
@@ -221,8 +221,8 @@ public class Item {
                 this.itemSize,
                 this.itemColor,
                 this.itemPrice,
-                this.quantity,
-                this.carts
+                this.quantity
+                // this.carts
         );
     }
 
