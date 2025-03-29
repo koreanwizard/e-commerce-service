@@ -1,10 +1,4 @@
-package com.madebywizard.ecommerce.user.model;
-
-import com.madebywizard.ecommerce.item.model.Item;
-import jakarta.persistence.*;
-
-import java.util.List;
-import java.util.Objects;
+package com.madebywizard.ecommerce.customer.model;
 
 
 // A Cart entity, the table name is cart

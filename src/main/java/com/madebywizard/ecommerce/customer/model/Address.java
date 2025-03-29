@@ -1,11 +1,4 @@
-package com.madebywizard.ecommerce.user.model;
-
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.List;
-import java.util.Objects;
+package com.madebywizard.ecommerce.customer.model;
 
 
 // An Address entity, the table name is "address"
