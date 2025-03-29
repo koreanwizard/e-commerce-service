@@ -10,9 +10,9 @@ It includes a @ControllerAdvice to easily handle exceptions.
 The @ControllerAdvice will handle exceptions that are located in 'GlobalExceptionHandler' with
 @ExceptionHandler annotation.
 
-  - handleUserNotFoundException: An exception that will occur when user is not found. It takes an 'UserNotFoundException'
-  as a parameter and it will return a ResponseEntity<ErrorResponse> with HttpStatus.NOT_FOUND (404) and passing a 'ErrorResponse'
+  - handleCustomerNotFoundException: An exception that will occur when customer is not found. It takes an 'CustomerNotFoundException'
+  as a parameter, and it will return a ResponseEntity<ErrorResponse> with HttpStatus.NOT_FOUND (404) and passing a 'ErrorResponse'
   as a body of the response.
 
-  - handleUserNotValidException: An exception that will occur when user information is not valid. The rest of logic is
-  same as 'handleUserNotFoundException' method but it includes the HttpStatus.BAD_REQUEST (400).
+  - handleCustomerNotValidException: An exception that will occur when customer information is not valid. The rest of logic is
+  same as 'handleCustomerNotFoundException' method, but it includes the HttpStatus.BAD_REQUEST (400).

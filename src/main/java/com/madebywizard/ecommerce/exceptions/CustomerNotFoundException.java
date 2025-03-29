@@ -3,9 +3,9 @@ package com.madebywizard.ecommerce.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UserNotValidException extends RuntimeException {
-    public UserNotValidException(String message) {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class CustomerNotFoundException extends RuntimeException {
+    public CustomerNotFoundException(String message) {
         super(message);
     }
 }
