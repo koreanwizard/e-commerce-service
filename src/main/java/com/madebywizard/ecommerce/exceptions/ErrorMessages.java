@@ -11,8 +11,9 @@ public enum ErrorMessages {
     INVALID_ITEM_QUANTITY("the item quantity cannot be negative"),
     INVALID_ENUM("invalid enum"),
     // user exceptions
-    USER_NOT_FOUND("User Not Found");
-
+    USER_NOT_FOUND("User Not Found"),
+    USER_ID_ALREADY_EXIST("user id already exist"),
+    USER_EMAIL_ALREADY_EXIST("user email already exist");
 
 
 
