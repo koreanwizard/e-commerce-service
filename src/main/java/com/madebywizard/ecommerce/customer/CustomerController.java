@@ -1,24 +1,24 @@
 package com.madebywizard.ecommerce.customer;
 
 import com.madebywizard.ecommerce.customer.model.Customer;
-import com.madebywizard.ecommerce.customer.services.CreateUserService;
+import com.madebywizard.ecommerce.customer.services.CreateCustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class UserController {
+public class CustomerController {
 
-    private final CreateUserService createUserService;
+    private final CreateCustomerService createCustomerService;
 
-    public UserController(CreateUserService createUserService) {
-        this.createUserService = createUserService;
+    public CustomerController(CreateCustomerService createCustomerService) {
+        this.createCustomerService = createCustomerService;
     }
 
 
     // will return a string if successfully created
     @PostMapping("/user")
     public ResponseEntity<String> createSingleUser(@RequestBody Customer customer) {
-        return createUserService.execute(customer);
+        return createCustomerService.execute(customer);
     }
 
 

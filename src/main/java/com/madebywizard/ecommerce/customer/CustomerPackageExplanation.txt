@@ -1,0 +1,10 @@
+CustomerController:
+A controller that will contain every CRUD requests
+
+- getCustomerById: a GET request that returns a specific 'Customer' object that contains a specific 'id'.
+
+
+
+
+CustomerRepository:
+An repository that inherits JpaRepository (generic value T: 'Customer' object, ID: Integer)
