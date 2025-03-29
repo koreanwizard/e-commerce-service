@@ -1,20 +1,18 @@
-package com.madebywizard.ecommerce.user.model;
+package com.madebywizard.ecommerce.customer.model;
 
-import java.util.Objects;
-
-// A DTO (data transfer object) for User
-public class UserDTO {
+// A DTO (data transfer object) for Customer
+public class CustomerDTO {
 
     private Integer id;
-    private String userId;
+    private String customerId;
     private String lastName;
     private String email;
 
-    public UserDTO(User user) {
-        this.id = user.getId();
-        this.userId = user.getUserId();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
+    public CustomerDTO(Customer customer) {
+        this.id = customer.getId();
+        this.customerId = customer.getCustomerId();
+        this.lastName = customer.getLastName();
+        this.email = customer.getEmail();
     }
 
     public Integer getId() {
@@ -25,12 +23,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getCustomerId() {
+        return this.customerId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getLastName() {
@@ -73,8 +71,8 @@ public class UserDTO {
     // can be used for debugging purposes
     @Override
     public String toString() {
-        return "UserDTO{" + "id=" + this.id +
-                ", userId='" + this.userId + "'" +
+        return "CustomerDTO{" + "id=" + this.id +
+                ", customerId='" + this.customerId + "'" +
                 ", lastName='" + this.lastName + "'" +
                 ", email='" + this.email + "'" +
                 "}";
