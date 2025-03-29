@@ -4,45 +4,45 @@ package com.madebywizard.ecommerce.customer.services;
 import com.madebywizard.ecommerce.Command;
 import com.madebywizard.ecommerce.customer.model.Customer;
 import com.madebywizard.ecommerce.exceptions.ErrorMessages;
-import com.madebywizard.ecommerce.exceptions.UserNotValidException;
-import com.madebywizard.ecommerce.customer.UserRepository;
+import com.madebywizard.ecommerce.exceptions.CustomerNotValidException;
+import com.madebywizard.ecommerce.customer.CustomerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class CreateUserService implements Command<Customer, String> {
+public class CreateCustomerService implements Command<Customer, String> {
 
     private final PasswordEncoder encoder;
 
-    private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
 
-    public CreateUserService(PasswordEncoder encoder, UserRepository userRepository) {
+    public CreateCustomerService(PasswordEncoder encoder, CustomerRepository customerRepository) {
         this.encoder = encoder;
-        this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
     }
 
 
     public ResponseEntity<String> execute(Customer customer) {
-//        UserValidator.validate(user);
+        // CustomerValidator.validate(user);
 
-        // Optional<User> optionalUser = userRepository.findByUserId(user.getUserId());
-
-        // check if user id already exists
-        if (userRepository.findByUserId(customer.getUserId()).isPresent()) {
-            throw new UserNotValidException(ErrorMessages.USER_ID_ALREADY_EXIST.getMessage());
+        // THESE SHOULD BE INSIDE CustomerValidator.validate METHOD!!!
+        // check if customer id already exists
+        if (customerRepository.findByCustomerId(customer.getCustomerId()).isPresent()) {
+            throw new CustomerNotValidException(ErrorMessages.CUSTOMER_ID_ALREADY_EXIST.getMessage());
         }
 
         // check if user email already exists
-        if (userRepository.findByEmail(customer.getEmail()).isPresent()) {
-            throw new UserNotValidException(ErrorMessages.USER_EMAIL_ALREADY_EXIST.getMessage());
+        if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
+            throw new CustomerNotValidException(ErrorMessages.CUSTOMER_EMAIL_ALREADY_EXIST.getMessage());
         }
 
-        // encode the raw password
-        customer.setUserPassword(encoder.encode(customer.getUserPassword()));
-        Customer savedCustomer = userRepository.save(customer);
-        System.out.println(savedCustomer);
-        return ResponseEntity.ok("SUCCESSFULLY CREATED! YOUR ID IS: " + savedCustomer.getUserId());
-
+        // encode the raw password, save it to the repository, and returns a string message to congrate a new customer
+        customer.setCustomerPassword(encoder.encode(customer.getCustomerPassword()));
+        customerRepository.save(customer);
+        System.out.println(customer);
+        return ResponseEntity.ok("CONGRATULATION! SUCCESSFULLY CREATED! YOUR ID IS: " + customer.getCustomerId());
     }
 }
