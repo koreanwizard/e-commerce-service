@@ -6,6 +6,7 @@ package com.madebywizard.ecommerce.item;
  import com.madebywizard.ecommerce.item.services.*;
 
  import org.springframework.http.ResponseEntity;
+ import org.springframework.security.access.prepost.PreAuthorize;
  import org.springframework.web.bind.annotation.DeleteMapping;
  import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
@@ -86,14 +87,15 @@ public class ItemController {
 
     // BOTH ADMIN AND USERS CAN DO THESE OPERATIONS (AUTHENTICATION IS NOT REQUIRED)
     // -----------------------------------------------------------------------------------------------------------
-
-
     // add this if headers needed: produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/items")
     public ResponseEntity<List<ItemDTO>> getEveryItem() {
         return getItemsService.execute(null);
     }
 
+
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDTO> getOneItem(@PathVariable("id") Integer id) {
         return getItemService.execute(id);
@@ -102,15 +104,15 @@ public class ItemController {
 
     // these GET HTTP requests can be combined by adding filters into the request parameter
     // 필터 넣고 합처야 하는게 맞는데 일단은 그냥 가자
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/items/search/name")
     public ResponseEntity<List<ItemDTO>> searchItemByName(@RequestParam("itemName") String itemName) {
         return searchItemByNameService.execute(itemName);
     }
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/items/search/color")
     public ResponseEntity<List<ItemDTO>> searchItemByColor(@RequestParam("itemColor") String itemColor) {
         return searchItemByColorService.execute(itemColor);
     }
-
-
     // -----------------------------------------------------------------------------------------------------------
 }
