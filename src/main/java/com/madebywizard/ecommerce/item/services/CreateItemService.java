@@ -29,7 +29,7 @@ public class CreateItemService implements Command<Item, ItemDTO> { // input: Ite
         ItemValidator.validate(item); // validator
 
         Item savedItem = itemRepository.save(item);
-        System.out.println(savedItem);
+        System.out.println("ITEM CREATED: " + savedItem);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ItemDTO(savedItem));
     }
 }
